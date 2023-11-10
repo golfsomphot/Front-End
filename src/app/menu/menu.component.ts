@@ -13,23 +13,26 @@ export class MenuComponent implements OnInit {
   constructor(private router: Router, private va: varible) {
 
   };
+  //ตัวแปล
+  public isLoginPage: boolean = false;
+  public isVisible: boolean = false;
+  public submenu: boolean = false;
+  public base64Strings: any
+
   async ngOnInit() {
     await this.router.events.subscribe((page) => {
       if (page instanceof NavigationEnd) {
         const allowedURLs = ['/'];
         this.isLoginPage = allowedURLs.includes(this.router.url);
+        this.base64Strings = this.va.userdata.pic
       }
     });
-       
-    // console.log("base64Strings:",this.base64Strings)
+
+     
   };
 
-  //ตัวแปล
-  public isLoginPage: boolean = false;
-  public isVisible: boolean = false;
-  public submenu: boolean = false;
-  public base64Strings = this.va.userdata.pic; 
-  
+
+
   //ฟังชั่นเปิดปิดเมนูใหญ่
   close_menu() {
     // console.log("this.isVisible:", this.isVisible);

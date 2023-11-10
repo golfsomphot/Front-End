@@ -19,13 +19,13 @@ export class ProfileComponent implements OnInit {
     // this.getSearch("");
     // this.imageBase64 = this.defaultImageBase64;
     // console.log("this.va:", this.va)
-     
+    // console.log("base64Stringprofile:", this.base64String)
   }
   onSubmit() {
-    
+
   }
-   
   public base64String = this.va.userdata.pic;
- 
-  
+
+
+
 }
