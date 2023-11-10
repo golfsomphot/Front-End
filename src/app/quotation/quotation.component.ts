@@ -14,7 +14,6 @@ import { varible } from '../varible';
 })
 export class QuotationComponent implements OnInit {
   constructor(private http: HttpClient, private ngbModal: NgbModal, private va: varible) {
-
   };
   ngOnInit() {
     this.Searchqt("");
