@@ -12,6 +12,8 @@ export class ProductsComponent implements OnInit {
   constructor(private ngbModal: NgbModal, private http: HttpClient, private va: varible) {
 
   }
+  public yourFile: any
+  public base64textString: any
 
   ngOnInit() {
     this.getdata("");
@@ -51,16 +53,11 @@ export class ProductsComponent implements OnInit {
     this.base64textString = "../../assets/photo/pdprofilradd.png"
     console.log();
   }
-  //ฟังชั่นเพิ่มรูป
-
   //ปุ่มSearch
   async btnsearch(keyword: any) {
     await this.getdata(keyword)
-
   }
-  public yourFile: any
-  public base64textString: any
-
+  
   selectFile(): void {
     var img = <HTMLElement>document.getElementById('fileInput');
     img.click();
