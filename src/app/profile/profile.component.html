@@ -1,0 +1,53 @@
+<!-- <app-menu> </app-menu> -->
+
+
+<div class="row_responsive   ">
+    <!-- รูปโปร -->
+    <div class="col-5   ">
+        <form>
+            <img class=" img-fluid imgprofile" [src]="base64String" alt="Image">
+            <input type="file" id="fileInput" style="display: none">
+        </form>
+    </div>
+    <!-- ข้อมูลuser -->
+    <div class="col-7 main_name "   >
+        <div class="" style="display: flex;">
+
+            <h1  > {{va.userdata.fullname}} </h1>
+            <h3 style="color: #0A6CAE; margin-left: 1vw;margin-top: 1vh;">({{va.userdata.nickname}})</h3>
+
+        </div>
+        <h2 style="margin-top: 5px;"> User Administator (r&d)</h2>
+        <div class="box_user ">
+            <div class=" row User">
+                <h3 class="col-3" style="color: black;"> User: {{va.userdata.empcode}}</h3>
+                <div class="col-9">
+                    <button class="btn_responsive" type="button">
+                        change password
+                    </button>
+                </div>
+            </div>
+            <div class=" User_2">
+                <div class="" style="margin-top: 10%; ">email
+                    <br>{{va.userdata.email}}
+                </div>
+                <div class="phone" style="margin-top: 10%;">phone
+                    <br>{{va.userdata.phone}}
+                </div>
+
+            </div>
+            <div class="line">
+                <hr>
+            </div>
+
+            <div class="row location  ">
+                <div>
+                    location
+                </div>
+                <div>
+                    {{va.userdata.address}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

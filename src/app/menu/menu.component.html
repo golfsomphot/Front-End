@@ -1,0 +1,51 @@
+<div *ngIf="!isLoginPage">
+  <ul *ngIf="isVisible" id="isVisible" class="menu">
+    <h3 style="background-color: #00569F;" class="header">Gpsasia <i (click)="close_menu()" class=" "
+        style="color: aliceblue; margin-left: 10px; cursor: pointer;"><img src="../../assets/photo/Menu.png" alt=""
+          style="padding-right: 20px;"> </i></h3>
+    <div class="menu_li">
+      <li routerLink="profile" (click)="close_menu()">PROFILE </li>
+    </div>
+    <div class="menu_li">
+      <li routerLink="dashboard" (click)="close_menu()">DASH BOARD </li>
+    </div>
+    <div class="menu_li">
+      <li routerLink="quotation" (click)="close_menu()">QUOTATION</li>
+    </div>
+    <div class="menu_li">
+      <li routerLink="saleorder" (click)="close_menu()">SALE ORDER </li>
+    </div>
+    <div class="menu_li">
+      <li (click)="closesub()">MASTER DATA <i class="" style="float: right; margin-right: 20px; "
+          class="bi bi-caret-down-fill"></i>
+        <div id="Smenu" *ngIf="submenu">
+          <div class="p_menu">
+            <p routerLink="employees" (click)="close_menu()" (click)="closesub()"> Employees </p>
+          </div>
+          <div class="p_menu">
+            <p routerLink="customer" (click)="close_menu()" (click)="closesub()">Customer </p>
+          </div>
+          <div class="p_menu">
+            <p routerLink="products" (click)="close_menu()" (click)="closesub()">Products</p>
+          </div>
+        </div>
+      </li>
+    </div>
+    <!-- <div class="menu_li">
+      <li routerLink="profile">REPORT </li>
+    </div> -->
+    <div class="menu_li">
+      <!-- (click)=" close_menu()" -->
+      <li routerLink="/" (click)=" close_menu()">LOGOUT </li>
+    </div>
+  </ul>
+  <!-- รูปคนบนสุด bi bi-person-fill-->
+  <i class=" icon_profile" routerLink="/profile"><img style="width: 30px;height: 30px; border-radius: 50%;" [src]="base64Strings" alt=""></i>
+  <h4 class="header" style="background-color:#004682; height: 50px;">
+
+
+    <b><img (click)="close_menu()" class="icon_menu" src="../../assets/photo/Menu.png" alt="">
+      <div class="logogps">GPSASIA</div>
+    </b>
+  </h4>
+</div>

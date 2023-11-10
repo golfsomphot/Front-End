@@ -1,0 +1,100 @@
+ * {
+    padding: 0;
+    margin: 0;
+
+ }
+
+ .header {
+    text-align: center;
+    color: #fff;
+    height: 40px;
+    height: 10%;
+
+ }
+
+ .icon_profile {
+    float: right;
+    color: #fff;
+    padding: 10px;
+    height: 20px;
+ }
+
+ ul {
+    width: 270px;
+    list-style-type: none;
+    position: fixed;
+    height: 780px;
+    /* display: none; */
+ }
+
+  .menu {
+    background-color: #00569F;
+    z-index: 1; 
+    animation-duration: 4s;
+    animation-delay: 5ms;
+    
+    font-size: 10px;
+    width: 20vw;
+    transition: font-size 0.1s, width 0.1s;
+ }  
+
+ ul li {
+    margin-top: 30px;
+    margin-left: 20px;
+    color: #fff;
+
+ }
+
+ .menu_li:hover {
+    cursor: pointer;
+    color: #000;
+    /* opacity: 70%; */
+    background-color: #146ab7;
+
+    /* transform: scale(1.1);  */
+ }
+
+ .p_menu:hover {
+    cursor: pointer;
+    color: #000;
+    /* opacity: 70%; */
+    background-color: #528bbd;
+
+    /* transform: scale(1.1);  */
+ }
+
+ p {
+    margin-top: 10px;
+    height: 30px;
+    color: #fff;
+ }
+
+ h3 i {
+    float: right;
+    color: #fff;
+ }
+
+ h3 {
+    color: #fff;
+
+ }
+
+ .icon_menu {
+    cursor: pointer;
+    float: left;
+    padding-top: 2vh;
+    padding-left: 2vw;
+ }
+
+ .logogps {
+    padding-right: 5px;
+    padding-top: 10px;
+ }
+
+
+ @media  only screen and (min-width: 1286px) {
+   .menu{
+      font-size: 16px;
+   }
+    
+ }

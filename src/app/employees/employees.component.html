@@ -1,0 +1,110 @@
+<!-- แถบเมนู -->
+<!-- <app-menu> </app-menu> -->
+<!-- row icon เพิ่มprofile -->
+<header>
+    <div class="row">
+        <div class="col-4">
+            <h1>Employees</h1>
+        </div>
+        <div class="col-8 Search">
+            <span class="Search_input">
+                <i class="bi bi-search" (click)=" btnsearch(insearch.value)"></i>
+                Search <input class="input_search" (keyup.enter)="btnsearch(insearch.value)" #insearch type="text"
+                    placeholder="username or email enter" />
+            </span>
+            <p (click)="open(customeradd)" class="" style="cursor: pointer;"><img src="../../assets/photo/imgadd.png"
+                    alt=""></p>
+        </div>
+    </div>
+</header>
+<!-- ตาราง  -->
+<div class="grid">
+    <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+    <ag-grid-angular class="ag-theme-alpine" style=" width: 100%;" [rowData]="rowData" [columnDefs]="columnDefs"
+        (rowDoubleClicked)="rowDoubleClicked($event,contentupdate)">
+    </ag-grid-angular>
+
+</div>
+<div class="modal-body">
+    <ng-template #customeradd let-modal id="modal-body">
+        <div> <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                style="float: right; margin-right: 10px; margin-top: 5px; cursor: pointer;"> </div>
+        <div class="row">
+            <div class="col-6">
+                <h2 style="padding-left:6vh; margin-top: 1vh;">Create <br style="margin-top: 1vh;">Employees</h2>
+            </div>
+            <div class="col-6">
+                <div>
+                    <img (click)="selectFile()" class="img-fluid imgprofile_modal" [src]="base64textString " alt="">
+                    <input (change)="selectimg_click($event)" type="file" name="" id="fileInput" style="display: none;">
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-left: 5vh;  ">
+            <div class="col-6" style=" margin-top: 1vh;">
+                <h6>Fullname </h6> <input #fullname type="text" placeholder="name surname" style="width:85%;"
+                    [(ngModel)]="activeemployees.fullname">
+            </div>
+            <div class="col-6" style=" margin-top: 1vh;">
+                <h6>Nickname</h6> <input #Nickname type="text" placeholder="nickname" style="width:85%;"
+                    [(ngModel)]="activeemployees.nickname">
+            </div>
+        </div>
+        <div class="row" style="margin-left: 5vh;">
+            <div class="col-6" style=" margin-top: 1vh;">
+                <h6>Email</h6> <input #Email placeholder="email" type="email" style="width:85%;"
+                    [(ngModel)]="activeemployees.email">
+            </div>
+            <div class="col-6" style=" margin-top: 1vh;">
+                <h6>Phone</h6> <input #Phone placeholder="phone" type="text" style="width:85%;"
+                    [(ngModel)]="activeemployees.phone">
+            </div>
+        </div>
+        <div class="row" style="margin-left: 5vh; ">
+            <!--ตำแหน่งปุ่ม Department -->
+            <div class="col-6  " style=" margin-top: 1vh;margin-top:2.5vh;">
+                <h6>Department</h6>
+                <select class="form-select" aria-label="Default select example" style="width: 85%;"
+                    [(ngModel)]="activeemployees.department" (change)="changedDepartment($event)">
+                    <option id="department" *ngFor="let i of department" [value]="i.id">{{i.departmentname}}</option>
+                </select>
+            </div>
+            <!--ตำแหน่งปุ่ม Position -->
+            <div class="col-6" style=" margin-top: 2.5vh;">
+                <h6>Position</h6>
+                <select name="" class="form-select" aria-label="Default select example" style="width: 85%;"
+                    [(ngModel)]="activeemployees.position">
+                    <ng-container *ngFor="let i of position">
+                        <ng-container *ngIf="i.depid == activeemployees.department">
+                            <option [value]="i.id">{{i.positionname}}</option>
+                        </ng-container>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: 5vh;  ">
+            <h6>Address</h6> <input #Address type="text" placeholder="address" style="width:93%;"
+                [(ngModel)]="activeemployees.address">
+        </div>
+        <hr style="margin-top: 1vh;">
+
+        <div class="row" style="margin-top:3vh;margin-bottom: 2vh;">
+            <button (click)=" insertemployees(modal)"
+                style="height: 4vh; width:90%;margin-left: 4vh; background-color: #004682; color: #fff; border-radius: 5px;">
+                Save</button>
+        </div>
+
+    </ng-template>
+
+    <ng-template #contentupdate let-modal>
+
+        <div class="row">
+            <div class="col">
+                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                    style="float: right; margin-right: 10px; margin-top: 5px; cursor: pointer;">
+                <h1>แก้ไขข้อมูล</h1>
+            </div>
+
+        </div>
+    </ng-template>

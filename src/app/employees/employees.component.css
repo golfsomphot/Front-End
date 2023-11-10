@@ -1,0 +1,113 @@
+ * {
+   margin: 0px;
+   padding: 0px;
+ }
+
+ .ag-theme-alpine {
+
+   width: 100%;
+   height: 80vh;
+   /* 2 */
+ }
+
+ .grid {
+   margin-left: 2%;
+   margin-right: 2%;
+   /* 2 */
+ }
+
+ .input_search {
+   padding: 10px;
+   text-align: inherit;
+   background-color: #E8E8E8;
+   margin-right: 100px;
+   margin-top: 8px;
+   height: 35px;
+   width: 35.5%;
+   /* 2 */
+ }
+
+ .Search_input {
+   padding-left: 2vw;
+   /* 2 */
+ }
+
+ h1 {
+   margin-left: 20px;
+   /* Head_name */
+   /* 2 */
+ }
+
+ i {
+   position: absolute;
+   left: 59%;
+   margin-top: 14px;
+   cursor: pointer;
+   /* 2 */
+   /* magnifyingglass */
+ }
+
+ /* ปุ่มเพิ่มprofile */
+
+
+
+ /* employee */
+ .filter {
+   display: flex;
+   text-align: center;
+   justify-content: center;
+ }
+
+ .img_password {
+   position: absolute;
+   right: 3vw;
+   margin-top: 0.5vh;
+ }
+
+ input {
+   height: 5vh;
+   background-color: #F9F9F9;
+   border: none;
+   border-top: 0.5px solid #DDDDDD;
+   /* 1 */
+ }
+
+ p {
+
+   background: none;
+   margin-right: 30px;
+   float: right;
+   /* 1 */
+
+ }
+
+ .icon_eyeconpassword {
+   position: absolute;
+   right: 4vw;
+   bottom: 15vh;
+ }
+
+ .icon_eyepassword1 {
+   position: absolute;
+   right: 4vw;
+   bottom: 25vh;
+ }
+
+ .imgprofile_modal {
+   /* height: 19vh;
+  width: 10vw; */
+   
+   margin-left: auto;
+   margin-right: auto;
+   display: block;
+
+ }
+ /* .modal-body{
+  max-width: 30%; 
+ }
+ 
+ @media only screen and (max-width: 1280px) {
+  .modal-dialog {
+    max-width: 100%;  
+  }
+} */

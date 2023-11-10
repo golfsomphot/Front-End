@@ -1,0 +1,172 @@
+<header>
+    <div class="row  ">
+        <div class="col-4">
+            <h1>Quotation</h1>
+        </div>
+        <div class="col-8 Search">
+            <span class="Search_input">
+                <i class="bi bi-search" (click)="btnSearch(insearch.value)"></i>
+                Search <input class="inputs" (keyup.enter)="btnSearch(insearch.value)" #insearch type="text"
+                    placeholder="username or email enter" />
+                <p (click)="open(customeradd)" class=""><img src="../../assets/photo/iconimgadd.png" alt=""></p>
+            </span>
+        </div>
+    </div>
+</header>
+<!-- ตาราง  -->
+<div class="grid">
+    <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+    <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+<div class="modal-body">
+    <!-- ข้อมูลใน modal -->
+    <ng-template #customeradd let-modal>
+        <div *ngIf="page==1">
+            <div class="Cross">
+                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                    style="float: right ; cursor: pointer; padding-top: 1vh; margin-right: 0.5vw; ">
+            </div>
+            <div class="head">
+                <h2 style="padding-left: 1vw; ">Create Quotation</h2>
+                <img style="padding-right: 4vw;" src="../../assets/photo/Quotation Code  20231002xxxxx-xxxx.png" alt="">
+            </div>
+            <div class="additem">
+                <div>
+                    <h6>Req.Date</h6>
+                    <input type="date" placeholder="00-00-0000" style=" height: 5vh; width: 97%;"> 
+                </div>
+                <div>
+                    <h6>Customer</h6>
+                    <input type="text" placeholder="customer name" style=" height: 5vh; width:97%;">
+                    <i class="bi bi-search modal_search"></i>
+                </div>
+                <div>
+                    <button style="border-radius: 5px; padding: 5px; 
+                     color: #fff; width: 80%; margin-left: 2vw;
+                      background-color: #004682; height: 5vh;">
+                        <h5 (click)="Next_click()" style="text-align: center;">Additem</h5>
+                    </button>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 1vw;">
+                <div class="col-6">
+                    <div class="row" style="padding-top: 1vh;">
+                        <div class="col-6">
+                            <h6>Bill To</h6> <input placeholder="bill To" type="text">
+                        </div>
+                        <div class="col-6">
+                            <h6>Ship To</h6> <input placeholder="ship To" type="text">
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 2vh;">
+                        <div class="col-6">
+                            <h6>Bill To Address</h6> <input placeholder="address" type="text">
+                        </div>
+                        <div class="col-6">
+                            <h6>Bill To Address</h6> <input placeholder="address" type="text">
+                        </div>
+                    </div>
+
+                    <div style="padding-top: 1vh;">
+                        <h6 style="padding-top: 2vh;">Paymentterm</h6> <input placeholder="paymentterm" type="text "
+                            style="width: 97%;">
+                        <h6 style="padding-top: 2vh;">Remark</h6> <input placeholder="remark" type="text "
+                            style=" height: 9vh; width: 97%;">
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="width: 12vw; padding-right: 1vw; padding-top: 2vh;">
+                            <h6 style="float: left;">Vat</h6>
+                            <h6 style="float: right;">x,xxx.xx</h6>
+                        </div>
+                        <div class="col-6" style="width:  12vw; padding-top: 2vh; ">
+                            <h6 style="float: left;">Amount</h6>
+                            <h6 style="float: right;">x,xxx.xx</h6>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-top: 2vh;  ">
+                        <div class="col-6" style="width:  12vw">
+                        </div>
+                        <div class="col-6" style="width:  12vw">
+                            <h6 style="float: left;">Total</h6>
+                            <h6 style="float: right;">x,xxx.xx</h6>
+                        </div>
+                    </div>
+                    <!-- ปุ่มsave -->
+                    <div style="padding-top: 8vh; padding-bottom: 3vh;">
+                        <button
+                            style="border-radius: 5px; color: #fff; height: 5vh; background-color: #004682; width: 97%; justify-content: center;"
+                            type="submit">
+                            <h4>Save</h4>
+                        </button>
+                    </div>
+                </div>
+                <!-- modal ขวา  -->
+                <div class="col-6">
+                    <div>
+                        <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+                        <ag-grid-angular style=" margin: 10px;" class="  ag-theme-alpine grid_modal"
+                            [rowData]="rowData2" [columnDefs]="columnDefs2">
+                        </ag-grid-angular>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- --------------------modal ที่2 --------------- -->
+        <div *ngIf="page==2">
+
+            <div class="row ">
+                <!-- ด้านบนชื่อและปุ่มกากบาท -->
+                <div class="col-6">
+                    <h3 style="padding-left: 10px;">Create Products</h3>
+                </div>
+                <div class="col-6">
+                    <img  (click)="Back_click(modal)" src="../../assets/photo/cross.png" alt=""
+                        style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer; ">
+                </div>
+            </div>
+            <div class="row " style="font-weight: bold;">
+                <div class="col-6 ">
+                    <div class="row ">
+                        <div style=" width: 90%; margin-top: 5vh; margin-left: 2vw; ">
+                            <div class="form-group">
+                                <label for="input-datalist">สินค้า</label>
+                                <input #inaddqt (keyup.enter)="Searchqt(inaddqt.value)" style="height: 5vh;" type="text"
+                                    class="form-control" placeholder="ชื่อสินค้า" list="list" id="input-datalist"
+                                    [(ngModel)]="changes" (change)="changedpd($event)">
+                                <datalist id="list">
+                                    <option *ngFor="let i of products" [value]="i.productname"> </option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div style="margin-top: 4vh; margin-left: 2vw;">
+
+                            <div>
+                                Unit<input [(ngModel)]="active.unit" (change)="changedUnit()" class="inputmodal2"
+                                    placeholder="unit" type="text"
+                                    style="width: 90%;border: none; border-top: 0.1px solid black;" [value]="active.unit">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row" style="margin-top: 4vh;">
+                        <div>
+                            UnitPrice<input class="inputmodal2" type="text" name="myInput" disabled
+                            placeholder="unitprice"  style="width: 90%;border: none;" [value]="active.Prices">
+                        </div>
+                        <div style="margin-top: 4vh;">
+                            Total<input class="inputmodal2" placeholder="total" type="text" disabled
+                                style="width: 90%;border: none;  " [value]="active.total">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ปุ่ม save -->
+            <div class="row" style="margin-left: 2vw;margin-right: 1vw;">
+                <button class="save" type="submit"  (click)="createquotation(modal)"
+                    style="  height: 5vh;  margin-bottom: 4vh; margin-top: 4vh;  width: 97%; color: #fff; background-color:#004682;">เพิ่มข้อมูล</button>
+            </div>
+        </div>
+    </ng-template>

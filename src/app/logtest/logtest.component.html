@@ -1,0 +1,33 @@
+ 
+
+
+    <div class="row cal_responsive   ">
+
+        <div class="col-8 ">
+            <img class="img" src="../../assets/photo/พื้น.jpg" alt="">
+        </div>
+        <div class="col-4" style=" background-color: #fff; text-align: justify;  border-radius: 10px; ">
+
+            <img class="img_in" src="../../assets/photo/gpslogin.png" alt="">
+            <div class="Email">Email</div>
+            <div>
+
+                <input #inuser maxlength="25" [(ngModel)]="Userlogin.user" type="text" placeholder="Username ro email"
+                    class=" user_input">
+
+            </div>
+            <div class="Password"> Password</div>
+            <div>
+                <input #inpass maxlength="10" (keyup.enter)="btnlogin_cilck( )" [(ngModel)]="Userlogin.password"
+                    type="password" placeholder="Enter your password" class="password_input">
+            </div>
+            <div class=" row btn_submit">
+                <button (click)="btnlogin_cilck()" type="submit" class="">
+                    <h6 class="login">Login</h6>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <img class="parent" src="../../assets/photo/background.png" alt="">
+ 

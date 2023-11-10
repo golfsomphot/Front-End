@@ -1,0 +1,56 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.grid {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.searchbtn_input {
+     
+    padding: 10px;
+    background-color: #E8E8E8;
+    margin-right: 100px;
+    margin-top: 8px;
+    height: 35px;
+    width:35.5%;
+}
+ 
+.Searchbtnspan_input{
+    padding-left: 2vw;
+}
+
+.Head_name {
+    margin-left: 20px;
+}
+
+.magnifyingglass {
+    position: absolute;
+    left: 59%;        
+    margin-top: 14px;
+    cursor: pointer; 
+   
+}
+ 
+p {
+    cursor: pointer;   
+    background: none;
+    margin-right: 30px;
+    float: right;
+
+}
+.imgprofile_modal{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+ 
+ 
+  
+ 
+ 
+ /* รูปใน modal */
+ 
+ 

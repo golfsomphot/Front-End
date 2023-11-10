@@ -1,0 +1,97 @@
+<!-- แถบเมนู -->
+<!-- <app-menu> </app-menu> -->
+
+<!-- row icon เพิ่มprofile -->
+<header>
+    <div class="row  ">
+        <div class="col-4">
+            <h1>Products</h1>
+        </div>
+        <div class="col-8 Search">
+
+            <span class="Search_input">
+                Search <input (keyup.enter)="btnsearch(insearch.value)" #insearch type="text"
+                    placeholder="Products or Product-code enter" />
+                <i class="bi bi-search" (click)="btnsearch(insearch.value)"></i>
+
+                <p (click)="open(customeradd)" class=""><img src="../../assets/photo/imgadd.png" alt=""></p>
+            </span>
+        </div>
+    </div>
+</header>
+<!-- ตาราง  -->
+<div class="grid" style="color: aqua;">
+    <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+    <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+    (rowDoubleClicked)="rowDoubleClicked($event,contentupdate)"   >
+    </ag-grid-angular>
+</div>
+
+
+<div class="modal-body">
+    <!-- ข้อมูลใน modal -->
+    <ng-template #customeradd let-modal style="width: 100%;">
+        <div class="row ">
+            <!-- ด้านบนชื่อและปุ่มกากบาท -->
+            <div class="col-6">
+                <h3 style="padding-left: 10px;">Create Products</h3>
+            </div>
+            <div class="col-6">
+                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                    style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer; ">
+            </div>
+        </div>
+        <div class="row " style="font-weight: bold;">
+            <div class="col-6 img_profile">
+                <div class="row ">
+                    <div>
+
+                        <img (click)="selectFile()" class="" style=" width: 90%; height: 37vh; "
+                            [src]="base64textString" alt="">
+                        <input (change)="selectimg_click($event)" type="file" name="" id="fileInput" style="display: none;">
+                    </div>
+                </div>
+                <h5 style="float: left;">Barcode </h5>
+                <input type="text" placeholder="barcode of product"
+                    style="width: 90%; border: none; border-top: 0.1px solid black; ">
+                <img src="../../assets/photo/Barcode.png" alt=""
+                    style="padding-bottom: 15vh;margin-top: 2vh; width: 90%;">
+            </div>
+
+            <div class="col-6">
+                <div class="row ">
+                    <div class="col-6"> Product-code <input [(ngModel)]="activeproducts.productscode" type="text"
+                        placeholder="product code"   style="width: 80%;border: none; border-top: 0.1px solid black; "></div>
+                    <div class="col-6"> Product-id <input [(ngModel)]="activeproducts.productsid" type="text"
+                        placeholder="product id"  style="width: 80%;border: none; border-top: 0.1px solid black; "></div>
+                </div>
+                <div class="row">
+                    Product-Name <input  [(ngModel)]="activeproducts.productsname"  placeholder="product name" type="text" style="width: 90%;border: none; border-top: 0.1px solid black;  ">
+                </div>
+                <div class="row" style="margin-top: 2vh;">
+                    <div class="col-4">
+                        Unit<input [(ngModel)]="activeproducts.unit" placeholder="unit" type="text" style="width: 70%;border: none; border-top: 0.1px solid black; ">
+                    </div>
+                    <div class="col-4">
+                        Qty|Pack<input [(ngModel)]="activeproducts.qtyperpack" placeholder="Price" type="text" style="width: 70%;border: none; border-top: 0.1px solid black; ">
+                    </div>
+                    <div class="col-4">
+                        Price<input [(ngModel)]="activeproducts.price" placeholder="Price" type="text" style="width: 70%;border: none; border-top: 0.1px solid black; ">
+                    </div>
+                </div>
+                <div class="row " style="width: 90%; ">
+                       Remark<input  [(ngModel)]="activeproducts.remark" type="text" placeholder="Remark"
+                        style=" margin-bottom: 2vh;  width: 100%; height: 10vh;border: none; border-top: 0.1px solid black;  ">
+                </div>
+                <!-- ปุ่ม save -->
+                <div class="row">
+                    <button class="save" type="submit"
+                    (click)="getINSERT(modal)"
+                    style=" height: 5vh; margin-top: 5vh;  width: 90%; color: #fff; background-color:#004682;  ">SAVE</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #contentupdate let-modal>
+        <h1>แก้ไขข้อมูล</h1>
+    </ng-template>

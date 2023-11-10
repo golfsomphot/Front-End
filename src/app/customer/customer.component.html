@@ -1,0 +1,94 @@
+<!-- แถบเมนู -->
+<!-- <app-menu> </app-menu> -->
+<!-- row icon เพิ่มprofile -->
+
+<div class="row">
+    <div class="col-4 test">
+        <h1 class="Head_name">Customer</h1>
+
+    </div>
+    <div class="col-8">
+        <span class="Searchbtnspan_input">
+            <i class="bi bi-search magnifyingglass" (click)="btnsearch(insearch.value)"></i>
+            Search <input class="searchbtn_input" (keyup.enter)="btnsearch(insearch.value)" #insearch type="text"
+                placeholder="customer or cust-code  enter" />
+            <p (click)="open(customeradd)" class=" "><img src="../../assets/photo/imgadd.png" alt=""></p>
+        </span>
+    </div>
+</div>
+<!-- ตาราง  -->
+<div class="grid">
+    <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+    <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs"
+        (rowDoubleClicked)="rowDoubleClicked($event,contentupdate)">
+    </ag-grid-angular>
+</div>
+<ng-template #customeradd let-modal>
+    <div> <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+            style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer;"> </div>
+    <div class="row">
+        <div class="col-6">
+            <h2 style="padding-left:6vh; margin-top: 1vh;">Create <br style="margin-top: 1vh;">Customer</h2>
+        </div>
+        <div class="col-6">
+            <img (click)=" selectFile()" class="imgprofile_modal" [src]="base64textString"
+                alt="">
+            <input (change)="selectimg_click($event)" type="file" name="" id="fileInput" style="display: none;">
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5vh;  ">
+        <div class="col-12">
+            <p style="font-weight: bold; font-size: small; float: left;">Customername </p> <input class="inmodal"
+                [(ngModel)]="activecustomer.customername" type="text" placeholder="name surname" style="width:93%; ">
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5vh;">
+        <div class="col-12" style=" margin-top: 1vh;">
+            <p style="font-weight: bold; font-size: small; float: left;">Tax</p> <input class="inmodal"
+                [(ngModel)]="activecustomer.tex" placeholder="texnumber" type="email" style="width:93%;">
+        </div>
+
+    </div>
+    <div class="row" style="margin-left: 5vh;">
+        <div class="col-6" style=" margin-top: 1vh;">
+            <p style="font-weight: bold; font-size: small; float: left;">Email</p> <input class="inmodal"
+                [(ngModel)]="activecustomer.email" placeholder="email" type="text" style="width:85%;">
+        </div>
+        <div class="col-6" style=" margin-top: 1vh;">
+            <p style="font-weight: bold; font-size: small; float: left;">Phone</p> <input class="inmodal"
+                [(ngModel)]="activecustomer.phone" placeholder="phone" type="text" style="width:85%;">
+        </div>
+    </div>
+    <div class="row" style="margin-left: 5vh;">
+        <div class="col-6" style=" margin-top: 1vh;">
+            <p style="font-weight: bold; font-size: small; float: left;">Contact name</p> <input class="inmodal"
+                [(ngModel)]="activecustomer.contactname" placeholder="phone" type="text" style="width:85%;">
+        </div>
+        <div class="col-6" style=" margin-top: 1vh;">
+            <p style="font-weight: bold; font-size: small; float: left;">Contact phone</p> <input class="inmodal"
+                [(ngModel)]="activecustomer.contactphone" placeholder="name of contact" type="text" style="width:85%;">
+        </div>
+
+
+    </div>
+    <div class="row" style="margin-left: 5vh; margin-top: 1vh;  ">
+        <p style="font-weight: bold; font-size: small;">Address</p> <input class="inmodal" type="text"
+            [(ngModel)]="activecustomer.address" placeholder="address" style="width:93%;">
+    </div>
+    <hr style="margin-top: 1vh;">
+    <div class="row" style="margin-left: 5vh; margin-top: 1vh; ">
+        <p style="font-weight: bold; font-size: small;">Remark</p> <input class="inmodal" type="text"
+            [(ngModel)]="activecustomer.remark" placeholder="remark" style="width:93%;  height: 10vh;">
+    </div>
+
+    <div class="row" style="margin-top: 2.5vh;margin-bottom: 2vh;">
+        <button
+            style="height: 5vh; width:90%;margin-left: 4vh; background-color: #004682; color: #fff; border-radius: 5px;"
+            (click)="insertcustomer(modal)">
+            Save</button>
+    </div>
+
+</ng-template>
+<ng-template #contentupdate let-modal>
+    <h1>แก้ไขข้อมูล</h1>
+</ng-template>

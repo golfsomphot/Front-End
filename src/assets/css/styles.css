@@ -1,0 +1,56 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+ 
+.ag-theme-alpine {
+    width: 100%;
+    height: 80vh;
+   
+}
+.grid{
+    margin-left: 2%;
+    margin-right: 2%; 
+}
+.searchbtn_input {
+   
+    padding: 10px;   
+    background-color: #E8E8E8;
+    margin-right: 100px;
+    margin-top: 8px;
+    height: 35px;
+    width:35.5%;
+  }
+  .Searchbtnspan_input{
+    
+    padding-left: 2vw;
+}
+.Head_name {
+    margin-left: 20px;
+}
+.magnifyingglass {
+    position: absolute;
+    left: 59%;        
+    margin-top: 14px;
+    cursor: pointer; 
+    
+  }
+  .imgprofile_modal{
+    padding-left: 4vw;
+    width: 60%;
+    height: 90%;
+       
+  }
+  .inmodal {
+    height: 4vh;
+    background-color:#F9F9F9 ;
+    border: none; 
+    border-top: 0.5px solid #DDDDDD; 
+ 
+  }
+  input{
+    outline: none;
+    border: none;
+  }
+   
+ 

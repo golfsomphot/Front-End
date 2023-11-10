@@ -1,0 +1,94 @@
+<!-- แถบเมนู -->
+<!-- <app-menu> </app-menu> -->
+<!-- row icon เพิ่มprofile -->
+<header>
+    <div class="row  ">
+        <div class="col-4">
+            <h1>SaleOrder</h1>
+        </div>
+        <div class="col-8 Search">
+            <span class="Search_input">
+                <i class="bi bi-search" (click)="getsaleorder(insearch.value)"></i>
+                Search <input #insearch class="inputs" (keyup.enter)="getsaleorder(insearch.value)" type="text"
+                    placeholder="sale order-code enter" />
+                <p (click)="open(customeradd)" class=""><img src="../../assets/photo/iconimgadd.png" alt=""></p>
+            </span>
+        </div>
+    </div>
+</header>
+<!-- ตาราง  -->
+<div class="grid">
+    <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
+    <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs">
+    </ag-grid-angular>
+</div>
+<div class="">
+    <!-- ข้อมูลใน modal -->
+    <ng-template #customeradd let-modal>
+        <div *ngIf="page==1">
+            <div class="Cross">
+                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                    style="float: right ; cursor: pointer; padding-top: 1vh; margin-right: 0.5vw; ">
+            </div>
+            <div class="head">
+                <h2 style="padding-left: 1vw; ">Create Sale Order</h2>
+            </div>
+            <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData2" [columnDefs]="columnDefs2">
+            </ag-grid-angular>
+            <div style=" height: 7vh;"> <button (click)="Next_click()" class="btn_next"
+                    style="float: right;">Next</button> </div>
+        </div>
+        <div *ngIf="page==2">
+            <div class="Cross">
+                <img (click)="Back_click(modal) " src="../../assets/photo/cross.png" alt=""
+                    style="float: right ; cursor: pointer; padding-top: 1vh; margin-right: 0.5vw; ">
+            </div>
+            <div class="head">
+                <h2 style="padding-left: 1vw; ">Create Sale Order</h2>
+                <img style="padding-right: 4vw;" src="../../assets/photo/Quotation Code  20231002xxxxx-xxxx.png" alt="">
+            </div>
+            <div class="row" style="margin-top: 3vh; width: 100%;  ">
+                <div class="col-6 " style="padding-left: 1vw;">
+                    <h6 style="float: left;  ">Req.Date</h6>
+                    <!-- <p style="float: right; color: #707070;">00-00-000</p> -->
+                    <input style="padding-left: 4vw;" type="date">
+
+                </div>
+                <div class="col-6">
+                    <h6 style="float: left;">Customer</h6>
+                    <p style="float: right;color: #707070;">customer</p>
+                </div>
+                <div class="row" style="padding-top: 3vh;">
+                    <div class="col-6">
+                        <h6 style="float: left; width: 90%; margin-left: 1vw; ">Bill To
+
+                        </h6>
+                        <input placeholder="bill to" style="width: 80%; margin-left: 1vw;background-color: #F9F9F9  " type="text">
+                    </div>
+                    <div class="col-6">
+                        <h6 style="float: right; width: 100%;">Paymentterm
+                        </h6>
+                        <input placeholder="paymentterm" style="width: 90%;background-color: #F9F9F9" type="text">
+                    </div>
+                </div>
+                <div class="row" style="padding-top: 3vh;">
+                    <div class="col-6" style="padding-left: 1vw;">
+                        <h6>Ship To</h6>
+                        <input placeholder=" ship to" style="width: 84%; background-color: #F9F9F9" type="text">
+                    </div>
+                    <div class="col-6">
+                        <p class=""> Remark</p>
+                        <p style="float: left;">detail remark</p>
+                    </div>
+                </div>
+            </div>
+            <ag-grid-angular class="ag-theme-alpine modal_detail" [rowData]="rowData3" [columnDefs]="columnDefs3">
+            </ag-grid-angular>
+
+            <div style=" text-align: center; height: 7vh; margin-bottom: 5vh;margin-top: 10vh; "> <button
+                    style="width: 90%; " class="btn_next">Save</button> </div>
+            <!-- <button (click)="Back_click()">Back </button> -->
+        </div>
+    </ng-template>
+
+</div>

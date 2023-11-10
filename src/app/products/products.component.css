@@ -1,0 +1,70 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.filter {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.grid {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+input {
+
+    padding: 10px;
+    text-align: inherit;
+    background-color: #E8E8E8;
+    margin-right: 100px;
+    margin-top: 8px;
+    height: 35px;
+    width: 35.5%;
+}
+
+.Search_input {
+    padding-left: 2vw;
+}
+
+
+h1 {
+    margin-left: 20px;
+}
+
+i {
+
+    position: absolute;
+    left: 59%;
+    cursor: pointer;
+    margin-top: 14px;
+
+}
+
+/* ปุ่มเพิ่มprofile */
+p {
+    cursor: pointer;
+    background: none;
+    margin-right: 30px;
+    float: right;
+}
+
+p:hover {
+    text-decoration: underline;
+}
+
+.img_profile {
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    /* margin-left: auto;
+    margin-right: auto;
+    display: block; */
+}
+.ag-theme-alpine{
+      
+    --ag-scrollbar-color: rgb(0, 0, 0) ;
+}

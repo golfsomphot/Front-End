@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.cal_responsive {
+  position: absolute;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  border-radius: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
+button {
+  position: relative;
+  left:2vw ; 
+  width: 80%;
+  height: 6vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  background-color: rgb(27, 65, 130);
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10%;
+  font-weight: bold;
+}
+
+.user_input {
+  position: relative;
+  left:2vw ; 
+  width: 80%;
+  padding: 10px;
+  font-size: 1em;
+  background-color: rgb(224, 227, 229);
+  border: none;
+  border-top: 0.5px solid black;
+
+}
+
+.password_input {
+  position: relative;
+  left:2vw ;  
+  width: 80%;
+  padding: 10px;
+  font-size: 1em;
+  margin-top: 0%;
+  background-color: rgb(224, 227, 229);
+  border: none;
+  border-top: 0.5px solid black;
+
+}
+
+.Email { position: relative;
+  left:1vw ; 
+  margin-left: 5%;
+  margin-top: 10%;
+  font-weight: bold;
+  color: rgb(88, 92, 96);
+}
+
+.Password {
+  position: relative;
+  left:1vw ;  
+
+  margin-top: 10%;
+  margin-left: 5%;
+  font-weight: bold;
+  color: rgb(88, 92, 96);
+}
+
+.img {
+  /* resize: both; */
+  position: relative;     
+   /* right: 5px; */
+  height: 70vh;
+  width: 100%;
+  /* margin-left: -5%; */
+  border-radius: 10px;
+  /* display: flex;
+  justify-content: center;
+  text-align: center; */
+}
+
+.img_in {
+  position: relative;
+  left:1vw ; 
+  resize: both;
+  height: 20%;
+   
+  width: 50%;
+  margin-right: 50%;
+  margin-left: 18%;
+  margin-top: 15%;
+  border-radius: 10px;
+}
+
+.parent {
+  width: 100%;
+  height: 100vh;
+
+}
+
+.login {
+  margin-top: 2%;
+}
+
+/* body{
+  background-image: url('../../assets/photo/background.png');
+ } */

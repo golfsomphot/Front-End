@@ -1,0 +1,207 @@
+* {
+    margin: 0px;
+    padding: 0px;
+ }
+
+ .ag-theme-alpine {
+
+    width: 100%;
+    height: 70vh;
+    /* text-align: center;
+    justify-content: center; */
+
+ }
+
+ .filter {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+ }
+
+ .grid {
+    margin-left: 2%;
+    margin-right: 2%;
+ }
+
+ .inputs {
+   border: none;
+    padding: 10px;
+    text-align: inherit;
+    background-color: #E8E8E8;
+    margin-right: 110px;
+    margin-top: 7px;
+    height: 35px;
+    width:35.5%;
+ }
+ .Search_input{
+   border: none;
+   padding-left: 2vw;
+}
+
+ h1 {
+    margin-left: 20px;
+ }
+
+ .bi-search{
+   position: absolute;
+   left: 59%;    
+   margin-top: 14px;
+   cursor: pointer; 
+ }
+/* ปุ่มเพิ่มprofile */
+ p {
+   cursor: pointer;   
+   background: none;
+   margin-right: 30px;
+   float: right;
+
+ }
+ /* โมเดลล่าง */
+.btn_next{
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 1vh;
+    margin-right: 1vw;
+    height: 5vh;
+    width: 8vw;
+    background-color: #004682;
+    color:#fff;
+}
+ /* .ag-theme-alpine_model{
+    width: 90%;
+ } */
+
+ .head{ 
+    display: flex;   
+    /* grid-template-columns: 2fr 1fr; */
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+.modal_detail{
+    height: 30vh;
+    margin-top: 3vh;
+}
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* p:hover {
+    text-decoration: underline;
+ } */
+
+ /* .head{ 
+   display: flex;   
+    
+   justify-content: space-between;
+   align-items: flex-end;
+ } */
+ /* .additem{
+   display:grid;
+   grid-template-columns: 1fr 2fr 1fr;  
+   gap: 15px;
+   align-items: end;
+   margin: 15px; 
+ }
+ 
+ .grid_modal{ 
+   width: 90%;
+   height: 60vh;
+ }
+ input{
+   background-color:#F9F9F9;
+   border: none;
+   border-top: 0.5px solid  #707070;  
+ }
+ .img_iconmodal{
+   position: absolute;
+   top: 16vh;
+   left: 22%;
+ }
+ 
+.modal_search{
+   position: absolute;
+   top: 14.5vh;
+   left: 68%;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* .Name {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .Email {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .CustType {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .Grade {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .Contact {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .Phone {
+    width: 80%;
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .location {
+    border: none;
+    border-top: 0.5px solid black;
+ }
+
+ .save {
+   font-weight: bold;
+    height: 40px;
+ }
+
+ .img_profile {
+    height: 250px;
+ } */
