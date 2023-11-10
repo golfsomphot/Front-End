@@ -21,7 +21,6 @@ export class QuotationComponent implements OnInit {
   public page: any = 1;
   unitid: any[] = [];
   public rowData = [];
-
   products: any = [];
   public result: any;
   public changes: any;
