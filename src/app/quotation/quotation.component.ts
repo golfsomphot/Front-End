@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, Events } from 'ag-grid-community';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
@@ -34,7 +34,7 @@ export class QuotationComponent implements OnInit {
   public rowData2 = [];
 
   products: any = [];
-  public result: any;
+  public results: any;
   public changes: any;
   public active: any = {
     Prices: "",
@@ -63,16 +63,18 @@ export class QuotationComponent implements OnInit {
 
   ];
 
-  //ฟังชั่น items
+  //ฟังชั่น เทียบสินค้าitems
   async changedpd(event: any) {
     try {
-      var inputs = (event.target as HTMLInputElement).value;
-      const result = this.products.find((pd: { productname: string }) => pd.productname === inputs);
-      this.active.Prices = result.price;
 
+      var inputs = (event.target as HTMLInputElement).value;
+      const result = this.products.find((pd: { productname: string, productcode: string }) => pd.productname === inputs);
+      this.active.Prices = result.price;
+      this.results = result
     } catch (error) {
 
     }
+
   }
   //ฟังชั่น ผลรวม additem
   changedUnit() {
@@ -111,7 +113,7 @@ export class QuotationComponent implements OnInit {
       if (response.data.length > 0) {
         this.products = response.data;
 
-        console.log("this.products:", this.products)
+        console.log("response:", response)
       } else {
         alert("ไม่พบข้อมูล");
       }
@@ -132,8 +134,20 @@ export class QuotationComponent implements OnInit {
       if (response.data.length > 0) {
         this.rowData = response.data;
       } else {
-        alert("ไม่พบข้อมูลน");
+        alert("ไม่พบข้อมูล");
       }
+    } catch (error) {
+
+    }
+  }
+  //เพิ่มสินค้าในquotation
+   
+  async additems() {
+    var quocode = "00001";
+    let parem = { tbname: "additemquotation", pd: this.results ,quocode: quocode };
+    try {
+      var response = await this.va.getdata("itemquotation", parem );
+
     } catch (error) {
 
     }

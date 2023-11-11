@@ -114,13 +114,13 @@
         </div>
     </ng-template>
 
-     <!--   modal ที่2 -->
+    <!--   modal ที่2 -->
     <ng-template #additem let-modal>
 
         <div class="row ">
             <!-- ด้านบนชื่อและปุ่มกากบาท -->
             <div class="col-6">
-                <h3 style="padding-left: 10px;">Create Products</h3>
+                <h3 style="padding-left: 10px;">Add Products</h3>
             </div>
             <div class="col-6">
                 <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
@@ -130,7 +130,7 @@
         <div class="row " style="font-weight: bold;">
             <div class="col-6 ">
                 <div class="row ">
-                    <div style=" width: 90%; margin-top: 5vh; margin-left: 2vw; ">
+                    <div style=" width: 90%; margin-top: 5vh; margin-left: 1.5vw; ">
                         <div class="form-group">
                             <label for="input-datalist">สินค้า</label>
                             <input #inaddqt (keyup.enter)="Searchqt(inaddqt.value)" style="height: 5vh;" type="text"
@@ -141,7 +141,7 @@
                             </datalist>
                         </div>
                     </div>
-                    <div style="margin-top: 4vh; margin-left: 2vw;">
+                    <div style="margin-top: 4vh; margin-left: 1.5vw;">
 
                         <div>
                             Unit<input [(ngModel)]="active.unit" (change)="changedUnit()" class="inputmodal2"
@@ -155,18 +155,19 @@
                 <div class="row" style="margin-top: 4vh;">
                     <div>
                         UnitPrice<input class="inputmodal2" type="text" name="myInput" disabled placeholder="unitprice"
-                            style="width: 90%;border: none;" [value]="active.Prices">
+                            style="width: 87%;border: none;margin-left: 0.5vw;" [value]="active.Prices">
                     </div>
-                    <div style="margin-top: 4vh;">
+                    <div style="margin-top: 4vh;margin-left: 0.5vw;">
                         Total<input class="inputmodal2" placeholder="total" type="text" disabled
-                            style="width: 90%;border: none;  " [value]="active.total">
+                            style="width: 87%;border: none;  " [value]="active.total">
                     </div>
                 </div>
             </div>
         </div>
         <!-- ปุ่ม save -->
-        <div class="row" style="margin-left: 2vw;margin-right: 1vw;">
-            <button class="save" type="submit"
-                style="  height: 5vh;  margin-bottom: 4vh; margin-top: 4vh;  width: 97%; color: #fff; background-color:#004682;">เพิ่มข้อมูล</button>
+        <div class="row" style="margin-left: 1.5vw;margin-right: 1vw;">
+            <button  (click)="additems()"  class="save" type="submit" style="  height: 5vh;  margin-bottom: 4vh;
+                 margin-top: 4vh;  width: 98%; color: #fff; background-color:#004682;">
+                เพิ่มข้อมูล</button>
         </div>
     </ng-template>
