@@ -18,19 +18,20 @@ export class QuotationComponent implements OnInit {
 
   }
   async ngOnInit() {
-
+    //ฟังชั่น ตรวจสอบurl หากมีการเปลี่ยนพาทให้ปิด Modal
     await this.router.events.subscribe((page) => {
       if (page instanceof NavigationStart) {
-        console.log("page.url", page.url);
+        // console.log("page.url", page.url);
         if (page.url != '/quotation') {
           this.ngbModal.dismissAll();
         }
       }
     });
   }
-  public page: any = 1;
+  //ตัวแปลต่างๆ
   unitid: any[] = [];
   public rowData = [];
+  public rowData2 = [];
 
   products: any = [];
   public result: any;
@@ -40,6 +41,7 @@ export class QuotationComponent implements OnInit {
     unit: "",
     total: "",
   }
+  //ฟิลmodal quotation
   columnDefs: ColDef[] = [
     { field: 'quocode', headerName: "Quotation Code", width: 130 },
     { field: 'Customer', headerName: "Customer", width: 200 },
@@ -51,7 +53,7 @@ export class QuotationComponent implements OnInit {
     { field: 'total', headerName: "Total", width: 200 }
 
   ];
-  rowData2 = [];
+  //ฟิลmodal additems
   columnDefs2: ColDef[] = [
     { field: 'quocode', headerName: "NO.", width: 60 },
     { field: 'Customer', headerName: "item", width: 70 },
@@ -61,7 +63,7 @@ export class QuotationComponent implements OnInit {
 
   ];
 
-
+  //ฟังชั่น items
   async changedpd(event: any) {
     try {
       var inputs = (event.target as HTMLInputElement).value;
@@ -72,6 +74,7 @@ export class QuotationComponent implements OnInit {
 
     }
   }
+  //ฟังชั่น ผลรวม additem
   changedUnit() {
     this.active.total = this.active.Prices * this.active.unit;
   }
@@ -79,11 +82,12 @@ export class QuotationComponent implements OnInit {
   btn_openmodal(openmodal: any) {
     this.ngbModal.open(openmodal, { size: 'lg' });
   }
+  ////เปิดmodal item
   btn_additem(additem: any) {
     this.Searchqt("");
     this.ngbModal.open(additem, { size: 'none' });
   }
-
+  //ฟังชั่น เพิ่มquotation
   async createquotation(modal: any) {
     let pram = { tbname: "createquotation" };
     try {
@@ -99,7 +103,7 @@ export class QuotationComponent implements OnInit {
       console.log(error);
     }
   }
-
+  //ฟังชั่น ค้นหาสินค้าในadditem
   async Searchqt(key: any) {
     let pram = { tbname: "addqt", keyword: key };
     try {
@@ -115,9 +119,11 @@ export class QuotationComponent implements OnInit {
 
     }
   }
+  //ปุ่มค้นหาสินค้าหลัก
   async btnSearch(keyword: any) {
     await this.getdata(keyword)
   }
+  //ฟังชั่นค้นหาสินค้าหลัก
   async getdata(key: any) {
 
     let pram = { tbname: "pdquotation", keyword: key };
@@ -126,7 +132,7 @@ export class QuotationComponent implements OnInit {
       if (response.data.length > 0) {
         this.rowData = response.data;
       } else {
-        alert("ไม่พบข้อมูล");
+        alert("ไม่พบข้อมูลน");
       }
     } catch (error) {
 
