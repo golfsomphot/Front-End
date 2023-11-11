@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { varible } from '../varible';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-quotation',
@@ -13,14 +14,24 @@ import { varible } from '../varible';
   styleUrls: ['./quotation.component.css']
 })
 export class QuotationComponent implements OnInit {
-  constructor(private http: HttpClient, private ngbModal: NgbModal, private va: varible) {
-  };
-  ngOnInit() {
-    this.Searchqt("");
+  constructor(private http: HttpClient, private ngbModal: NgbModal, private va: varible, private router: Router) {
+
+  }
+  async ngOnInit() {
+
+    await this.router.events.subscribe((page) => {
+      if (page instanceof NavigationStart) {
+        console.log("page.url", page.url);
+        if (page.url != '/quotation') {
+          this.ngbModal.dismissAll();
+        }
+      }
+    });
   }
   public page: any = 1;
   unitid: any[] = [];
   public rowData = [];
+
   products: any = [];
   public result: any;
   public changes: any;
@@ -28,7 +39,7 @@ export class QuotationComponent implements OnInit {
     Prices: "",
     unit: "",
     total: "",
-  };
+  }
   columnDefs: ColDef[] = [
     { field: 'quocode', headerName: "Quotation Code", width: 130 },
     { field: 'Customer', headerName: "Customer", width: 200 },
@@ -50,7 +61,7 @@ export class QuotationComponent implements OnInit {
 
   ];
 
-  //  ฟังชั่นเช็คราคาสินค้า หน้า additem
+
   async changedpd(event: any) {
     try {
       var inputs = (event.target as HTMLInputElement).value;
@@ -60,33 +71,19 @@ export class QuotationComponent implements OnInit {
     } catch (error) {
 
     }
-  };
-
-  //ฟังชั่นรวมราคาสินค้า
+  }
   changedUnit() {
     this.active.total = this.active.Prices * this.active.unit;
-  };
-
+  }
   //เปิดmodal
-  open(customeradd: any) {
-    this.ngbModal.open(customeradd, { size: 'lg' });
-    // console.log("content", customeradd);
-  };
+  btn_openmodal(openmodal: any) {
+    this.ngbModal.open(openmodal, { size: 'lg' });
+  }
+  btn_additem(additem: any) {
+    this.Searchqt("");
+    this.ngbModal.open(additem, { size: 'none' });
+  }
 
-  //ปุ่ม additem
-  Next_click() {
-    this.page++;
-    // console.log(" Next_clickthis.page:", this.page);
-  };
-
-  //ปุ่มกดปิด modal
-  Back_click(modal: any) {
-    modal.dismiss()
-    this.page--;
-    // console.log("Back_click this.page:", this.page);
-  };
-
-  //ฟังชั่น เพิ่มข้อมูล หน้า additem
   async createquotation(modal: any) {
     let pram = { tbname: "createquotation" };
     try {
@@ -101,9 +98,8 @@ export class QuotationComponent implements OnInit {
       alert("ไม่สามารถบันทึกข้อมูลได้");
       console.log(error);
     }
-  };
+  }
 
-  //ฟังชั่น ค้นหาสินค้าหน้า additem
   async Searchqt(key: any) {
     let pram = { tbname: "addqt", keyword: key };
     try {
@@ -111,21 +107,17 @@ export class QuotationComponent implements OnInit {
       if (response.data.length > 0) {
         this.products = response.data;
 
-        // console.log("this.products:", this.products)
+        console.log("this.products:", this.products)
       } else {
         alert("ไม่พบข้อมูล");
       }
     } catch (error) {
 
     }
-  };
-
-  //ฟังชั่นปุ่มค้นหาสินค้า Search หลัก
+  }
   async btnSearch(keyword: any) {
     await this.getdata(keyword)
-  };
-
-  //ฟังชั่นค้นหาสินค้า Search หลัก
+  }
   async getdata(key: any) {
 
     let pram = { tbname: "pdquotation", keyword: key };
@@ -139,7 +131,7 @@ export class QuotationComponent implements OnInit {
     } catch (error) {
 
     }
-  };
+  }
 
 
-};
+}

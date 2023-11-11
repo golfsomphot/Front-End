@@ -8,21 +8,23 @@
                 <i class="bi bi-search" (click)="btnSearch(insearch.value)"></i>
                 Search <input class="inputs" (keyup.enter)="btnSearch(insearch.value)" #insearch type="text"
                     placeholder="username or email enter" />
-                <p (click)="open(customeradd)" class=""><img src="../../assets/photo/iconimgadd.png" alt=""></p>
+                <p (click)="btn_openmodal(openmodal)" class=""><img src="../../assets/photo/iconimgadd.png" alt=""></p>
             </span>
         </div>
     </div>
 </header>
-<!-- ตาราง  -->
+<!-- ตาราง grid -->
+
 <div class="grid">
     <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
     <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs">
     </ag-grid-angular>
 </div>
+
 <div class="modal-body">
-    <!-- ข้อมูลใน modal -->
-    <ng-template #customeradd let-modal>
-        <div *ngIf="page==1">
+    <!--   modal ที่1 -->
+    <ng-template #openmodal let-modal>
+        <div>
             <div class="Cross">
                 <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
                     style="float: right ; cursor: pointer; padding-top: 1vh; margin-right: 0.5vw; ">
@@ -34,7 +36,7 @@
             <div class="additem">
                 <div>
                     <h6>Req.Date</h6>
-                    <input type="date" placeholder="00-00-0000" style=" height: 5vh; width: 97%;"> 
+                    <input type="date" placeholder="00-00-0000" style=" height: 5vh; width: 97%;">
                 </div>
                 <div>
                     <h6>Customer</h6>
@@ -45,7 +47,7 @@
                     <button style="border-radius: 5px; padding: 5px; 
                      color: #fff; width: 80%; margin-left: 2vw;
                       background-color: #004682; height: 5vh;">
-                        <h5 (click)="Next_click()" style="text-align: center;">Additem</h5>
+                        <h5 (click)="btn_additem(additem)" style="text-align: center;">Additem</h5>
                     </button>
                 </div>
             </div>
@@ -112,61 +114,61 @@
                 </div>
             </div>
         </div>
+    </ng-template>
 
-        <!-- --------------------modal ที่2 --------------- -->
-        <div *ngIf="page==2">
+     <!--   modal ที่2 -->
+    <ng-template #additem let-modal>
 
-            <div class="row ">
-                <!-- ด้านบนชื่อและปุ่มกากบาท -->
-                <div class="col-6">
-                    <h3 style="padding-left: 10px;">Create Products</h3>
-                </div>
-                <div class="col-6">
-                    <img  (click)="Back_click(modal)" src="../../assets/photo/cross.png" alt=""
-                        style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer; ">
-                </div>
+        <div class="row ">
+            <!-- ด้านบนชื่อและปุ่มกากบาท -->
+            <div class="col-6">
+                <h3 style="padding-left: 10px;">Create Products</h3>
             </div>
-            <div class="row " style="font-weight: bold;">
-                <div class="col-6 ">
-                    <div class="row ">
-                        <div style=" width: 90%; margin-top: 5vh; margin-left: 2vw; ">
-                            <div class="form-group">
-                                <label for="input-datalist">สินค้า</label>
-                                <input #inaddqt (keyup.enter)="Searchqt(inaddqt.value)" style="height: 5vh;" type="text"
-                                    class="form-control" placeholder="ชื่อสินค้า" list="list" id="input-datalist"
-                                    [(ngModel)]="changes" (change)="changedpd($event)">
-                                <datalist id="list">
-                                    <option *ngFor="let i of products" [value]="i.productname"> </option>
-                                </datalist>
-                            </div>
-                        </div>
-                        <div style="margin-top: 4vh; margin-left: 2vw;">
-
-                            <div>
-                                Unit<input [(ngModel)]="active.unit" (change)="changedUnit()" class="inputmodal2"
-                                    placeholder="unit" type="text"
-                                    style="width: 90%;border: none; border-top: 0.1px solid black;" [value]="active.unit">
-                            </div>
+            <div class="col-6">
+                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
+                    style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer; ">
+            </div>
+        </div>
+        <div class="row " style="font-weight: bold;">
+            <div class="col-6 ">
+                <div class="row ">
+                    <div style=" width: 90%; margin-top: 5vh; margin-left: 2vw; ">
+                        <div class="form-group">
+                            <label for="input-datalist">สินค้า</label>
+                            <input #inaddqt (keyup.enter)="Searchqt(inaddqt.value)" style="height: 5vh;" type="text"
+                                class="form-control" placeholder="ชื่อสินค้า" list="list" id="input-datalist"
+                                [(ngModel)]="changes" (change)="changedpd($event)">
+                            <datalist id="list">
+                                <option *ngFor="let i of products" [value]="i.productname"> </option>
+                            </datalist>
                         </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="row" style="margin-top: 4vh;">
+                    <div style="margin-top: 4vh; margin-left: 2vw;">
+
                         <div>
-                            UnitPrice<input class="inputmodal2" type="text" name="myInput" disabled
-                            placeholder="unitprice"  style="width: 90%;border: none;" [value]="active.Prices">
-                        </div>
-                        <div style="margin-top: 4vh;">
-                            Total<input class="inputmodal2" placeholder="total" type="text" disabled
-                                style="width: 90%;border: none;  " [value]="active.total">
+                            Unit<input [(ngModel)]="active.unit" (change)="changedUnit()" class="inputmodal2"
+                                placeholder="unit" type="text"
+                                style="width: 90%;border: none; border-top: 0.1px solid black;" [value]="active.unit">
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- ปุ่ม save -->
-            <div class="row" style="margin-left: 2vw;margin-right: 1vw;">
-                <button class="save" type="submit"  (click)="createquotation(modal)"
-                    style="  height: 5vh;  margin-bottom: 4vh; margin-top: 4vh;  width: 97%; color: #fff; background-color:#004682;">เพิ่มข้อมูล</button>
+            <div class="col-6">
+                <div class="row" style="margin-top: 4vh;">
+                    <div>
+                        UnitPrice<input class="inputmodal2" type="text" name="myInput" disabled placeholder="unitprice"
+                            style="width: 90%;border: none;" [value]="active.Prices">
+                    </div>
+                    <div style="margin-top: 4vh;">
+                        Total<input class="inputmodal2" placeholder="total" type="text" disabled
+                            style="width: 90%;border: none;  " [value]="active.total">
+                    </div>
+                </div>
             </div>
+        </div>
+        <!-- ปุ่ม save -->
+        <div class="row" style="margin-left: 2vw;margin-right: 1vw;">
+            <button class="save" type="submit"
+                style="  height: 5vh;  margin-bottom: 4vh; margin-top: 4vh;  width: 97%; color: #fff; background-color:#004682;">เพิ่มข้อมูล</button>
         </div>
     </ng-template>
