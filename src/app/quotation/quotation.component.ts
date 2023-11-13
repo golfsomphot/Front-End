@@ -74,7 +74,7 @@ export class QuotationComponent implements OnInit {
     } catch (error) {
 
     }
-
+    return
   }
   //ฟังชั่น ผลรวม additem
   changedUnit() {
@@ -141,12 +141,13 @@ export class QuotationComponent implements OnInit {
     }
   }
   //เพิ่มสินค้าในquotation
-   
+
   async additems() {
     var quocode = "00001";
-    let parem = { tbname: "additemquotation", pd: this.results ,quocode: quocode };
+    let parem = { tbname: "additemquotation", pd: this.results, quocode: quocode };
+
     try {
-      var response = await this.va.getdata("itemquotation", parem );
+      var response = await this.va.getdata("itemquotation", parem);
 
     } catch (error) {
 
