@@ -1,173 +1,209 @@
-<header>
-    <div class="row  ">
-        <div class="col-4">
-            <h1>Quotation</h1>
-        </div>
-        <div class="col-8 Search">
-            <span class="Search_input">
-                <i class="bi bi-search" (click)="btnSearch(insearch.value)"></i>
-                Search <input class="inputs" (keyup.enter)="btnSearch(insearch.value)" #insearch type="text"
-                    placeholder="username or email enter" />
-                <p (click)="btn_openmodal(openmodal)" class=""><img src="../../assets/photo/iconimgadd.png" alt=""></p>
-            </span>
-        </div>
+<!-- <app-menu></app-menu> -->
+
+<div class="row" style="width: 100%;">
+    <div class="col-3">
+        <h4>Quotation</h4>
     </div>
-</header>
-<!-- ตาราง grid -->
+    <div class="col-6 searchct">
+        <span class="spsearch">Search</span>
+        <input #txtkeyword class="searchbox" type="search" placeholder="quotation-code"
+            (keyup.enter)="btnSearch(txtkeyword.value)">
+        <i class="bi bi-search iconsearch" (click)="btnSearch(txtkeyword.value)"></i>
+    </div>
+    <div class="col-3 p-0 m-0">
+        <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" data-bs-toggle="modal"
+            data-bs-target="#myModal" (click)="open(content)">
+    </div>
+</div>
+
 <div class="grid">
-    <ag-grid-angular class="ag-theme-alpine" [rowData]="rowData" [columnDefs]="columnDefs">
+    <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" [rowData]="rowData"
+        [columnDefs]="columnDefs">
     </ag-grid-angular>
 </div>
 
-<div class="modal-body">
-    <!--   modal ที่1 -->
-    <ng-template #openmodal let-modal>
+<ng-template #content let-modal>
+    <div class="row ">
+        <div class="col-6">
+            <h4 class="modal-title fonth">Create Quotation</h4>
+        </div>
+        <div class="col-5">
+            <p class="socode">Quotation Code: {{Activequotation.quocode}}</p>
+        </div>
+        <div class="col-1">
+            <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+        </div>
+    </div>
+    <div class="row modal-body p-0 m-0">
         <div>
-            <div class="Cross">
-                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
-                    style="float: right ; cursor: pointer; padding-top: 1vh; margin-right: 0.5vw; ">
-            </div>
-            <div class="head">
-                <h2 style="padding-left: 1vw; ">Create Quotation</h2>
-                <img style="padding-right: 4vw;" src="../../assets/photo/Quotation Code  20231002xxxxx-xxxx.png" alt="">
-            </div>
-            <div class="additem">
-                <div>
-                    <h6>Req.Date</h6>
-                    <input type="date" placeholder="00-00-0000" style=" height: 5vh; width: 97%;">
+            <div class="row">
+                <div class="col-3 ">
+                    <label class="labeltxt fontp">Sale</label>
+                    <select (change)="employeechange($event)">
+                        <option>กรุณาระบุชื่อพนักงานขาย</option>
+                        <option *ngFor="let i of employeelist" [value]="i.empid">{{i.fullname}}</option>
+                    </select>
+                    <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
+                    <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
                 </div>
-                <div>
-                    <h6>Customer</h6>
-                    <input type="text" placeholder="customer name" style=" height: 5vh; width:97%;">
-                    <i class="bi bi-search modal_search"></i>
-                </div>
-                <div>
-                    <button style="border-radius: 5px; padding: 5px; 
-                     color: #fff; width: 80%; margin-left: 2vw;
-                      background-color: #004682; height: 5vh;">
-                        <h5 (click)="btn_additem(additem)" style="text-align: center;">Additem</h5>
-                    </button>
+                <div class="col-6 ">
+                    <label class="labeltxt fontp">User</label>
+                    {{Activequotation.empname}}
                 </div>
             </div>
-            <div class="row" style="padding-left: 1vw;">
-                <div class="col-6">
-                    <div class="row" style="padding-top: 1vh;">
-                        <div class="col-6">
-                            <h6>Bill To</h6> <input placeholder="bill To" type="text">
-                        </div>
-                        <div class="col-6">
-                            <h6>Ship To</h6> <input placeholder="ship To" type="text">
-                        </div>
-                    </div>
-                    <div class="row" style="padding-top: 2vh;">
-                        <div class="col-6">
-                            <h6>Bill To Address</h6> <input placeholder="address" type="text">
-                        </div>
-                        <div class="col-6">
-                            <h6>Bill To Address</h6> <input placeholder="address" type="text">
-                        </div>
-                    </div>
-
-                    <div style="padding-top: 1vh;">
-                        <h6 style="padding-top: 2vh;">Paymentterm</h6> <input placeholder="paymentterm" type="text "
-                            style="width: 97%;">
-                        <h6 style="padding-top: 2vh;">Remark</h6> <input placeholder="remark" type="text "
-                            style=" height: 9vh; width: 97%;">
-                    </div>
-                    <div class="row">
-                        <div class="col-6" style="width: 12vw; padding-right: 1vw; padding-top: 2vh;">
-                            <h6 style="float: left;">Vat</h6>
-                            <h6 style="float: right;">x,xxx.xx</h6>
-                        </div>
-                        <div class="col-6" style="width:  12vw; padding-top: 2vh; ">
-                            <h6 style="float: left;">Amount</h6>
-                            <h6 style="float: right;">x,xxx.xx</h6>
-                        </div>
-                    </div>
-                    <div class="row" style="padding-top: 2vh;  ">
-                        <div class="col-6" style="width:  12vw">
-                        </div>
-                        <div class="col-6" style="width:  12vw">
-                            <h6 style="float: left;">Total</h6>
-                            <h6 style="float: right;">x,xxx.xx</h6>
-                        </div>
-                    </div>
-                    <!-- ปุ่มsave -->
-                    <div style="padding-top: 8vh; padding-bottom: 3vh;">
-                        <button
-                            style="border-radius: 5px; color: #fff; height: 5vh; background-color: #004682; width: 97%; justify-content: center;"
-                            type="submit">
-                            <h4>Save</h4>
-                        </button>
-                    </div>
+            <div class="row">
+                <div class="col-3 ">
+                    <label class="labeltxt fontp">Req. Date</label>
+                    <input #uni class="mdinput" type="date" [value]="Activequotation.reqdate">
+                    <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
                 </div>
-                <!-- modal ขวา  -->
-                <div class="col-6">
-                    <div>
-                        <!-- ดึงข้อมูลเข้าตารางข้อมูลจาก array  -->
-                        <ag-grid-angular style=" margin: 10px;" class="  ag-theme-alpine grid_modal"
-                            [rowData]="rowData2" [columnDefs]="columnDefs2">
-                        </ag-grid-angular>
-                    </div>
+                <div class="col-6 ">
+                    <label class="labeltxt fontp">Customer</label>
+                    <!-- <input class="mdinput" list="customer" type="search" placeholder="customer name" (click)="btnsearchcustomer_click()"> -->
+                    <select (change)="customerchange($event)">
+                        <option>กรุณาระบุชื่อลูกค้า</option>
+                        <option *ngFor="let i of customerlist" [value]="i.custid">{{i.custname}}</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <button type="button" class="btnnext" (click)="btnadditem_click(contentadditem)">Add Item</button>
                 </div>
             </div>
         </div>
-    </ng-template>
-
-    <!--   modal ที่2 -->
-    <ng-template #additem let-modal>
-
-        <div class="row ">
-            <!-- ด้านบนชื่อและปุ่มกากบาท -->
+        <div class="row no-gutter p-0 m-0">
             <div class="col-6">
-                <h3 style="padding-left: 10px;">Add Products</h3>
-            </div>
-            <div class="col-6">
-                <img (click)="modal.dismiss('Cross click')" src="../../assets/photo/cross.png" alt=""
-                    style="float: right; margin-right: 10px; margin-top: 10px; cursor: pointer; ">
-            </div>
-        </div>
-        <div class="row " style="font-weight: bold;">
-            <div class="col-6 ">
+
                 <div class="row ">
-                    <div style=" width: 90%; margin-top: 5vh; margin-left: 1.5vw; ">
-                        <div class="form-group">
-                            <label for="input-datalist">สินค้า</label>
-                            <input #inaddqt (keyup.enter)="Searchqt(inaddqt.value)" style="height: 5vh;" type="text"
-                                class="form-control" placeholder="ชื่อสินค้า" list="list" id="input-datalist"
-                                [(ngModel)]="changes" (change)="changedpd($event)">
-                            <datalist id="list">
-                                <option *ngFor="let i of products" [value]="i.productname"> </option>
-                            </datalist>
-                        </div>
-                    </div>
-                    <div style="margin-top: 4vh; margin-left: 1.5vw;">
+                    <div class="col-6">
+                        <label class="labeltxt fontp">Bill To</label>
+                        <input class="mdinput" type="text" placeholder="bill" [value]="Activequotation.bill">
 
-                        <div>
-                            Unit<input [(ngModel)]="active.unit" (change)="changedUnit()" class="inputmodal2"
-                                placeholder="unit" type="text"
-                                style="width: 90%;border: none; border-top: 0.1px solid black;" [value]="active.unit">
-                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row ">
+                    <div class="col-6">
+                        <label class="labeltxt fontp">Bill To Address</label>
+                        <input class="mdinput" type="text" placeholder="address" [value]="Activequotation.billaddress">
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label class="labeltxt fontp">Paymentterm</label>
+                        <input #unit class="mdinput" type="text" placeholder="paymentterm"
+                            [(ngModel)]="Activequotation.paymentterm">
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label class="labeltxt fontp">Remark</label>
+                        <textarea #unit class="mdinput" type="text" placeholder="remark"
+                            [(ngModel)]="Activequotation.remark"></textarea>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-3">
+                        <p class="fontp">Vat</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="fontmoney">{{Activequotation.vat}}</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="fontp">Amount</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="fontmoney" style="float: right;">{{Activequotation.amount}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 offset-6">
+                        <p class="fontp">Total</p>
+                    </div>
+                    <div class="col-3">
+                        <p class="fontmoney">{{Activequotation.total}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="mdbtnsave" (click)="insertquotation(modal)">SAVE</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6 no-gutter p-0 m-0">
+                <div class="grid3">
+                    <div class="row">
+                        <div class="col-1">Item</div>
+                        <div class="col-6">Product</div>
+                        <div class="col-1">Qty</div>
+                        <div class="col-2">Price</div>
+                        <div class="col-2">Amount</div>
+                    </div>
+                    <div *ngFor="let i of Activequotation.detail">
+                        <div class="row" (click)="deleteitem(i)">
+                            <div class="col-1">{{i.item}}</div>
+                            <div class="col-6">{{i.productcode}}</div>
+                            <div class="col-1">{{i.qty}}</div>
+                            <div class="col-2">{{i.unitprice}}</div>
+                            <div class="col-2">{{i.amount}}</div>
+                        </div>
+                    </div>
+                    <!-- <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" [rowData]="Activequotation.detail"
+                        [columnDefs]="columnDefs2">
+                    </ag-grid-angular> -->
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</ng-template>
+
+<ng-template #contentadditem let-modal>
+    <div class="row">
+        <div class="col-6">
+            <h4 class="modal-title">Add Item</h4>
+        </div>
+        <div class="col-6">
+            <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
+                (click)="closemodal_click(modal)">
+        </div>
+    </div>
+    <div class="row modal-body ">
+        <div class="row p-0 m-0">
+            <div class="col-6">
+                <label class="labeltxt fontp">Product Name</label>
+                <input class="mdinput" list="product" placeholder="product" [(ngModel)]="Activeitemproduct.productcode">
+                <datalist id="product">
+                    <option *ngFor="let i of product" [value]="i.productname"></option>
+                </datalist>
             </div>
             <div class="col-6">
-                <div class="row" style="margin-top: 4vh;">
-                    <div>
-                        UnitPrice<input class="inputmodal2" type="text" name="myInput" disabled placeholder="unitprice"
-                            style="width: 87%;border: none;margin-left: 0.5vw;" [value]="active.Prices">
-                    </div>
-                    <div style="margin-top: 4vh;margin-left: 0.5vw;">
-                        Total<input class="inputmodal2" placeholder="total" type="text" disabled
-                            style="width: 87%;border: none;  " [value]="active.total">
-                    </div>
-                </div>
+                <label class="labeltxt fontp">Unit Price</label>
+                <input class="mdinput" type="number" [(ngModel)]="Activeitemproduct.unitprice">
             </div>
         </div>
-        <!-- ปุ่ม save -->
-        <div class="row" style="margin-left: 1.5vw;margin-right: 1vw;">
-            <button  (click)="additems()"  class="save" type="submit" style="  height: 5vh;  margin-bottom: 4vh;
-                 margin-top: 4vh;  width: 98%; color: #fff; background-color:#004682;">
-                เพิ่มข้อมูล</button>
+        <div class="row p-0 m-0">
+            <div class="col-6">
+                <label class="labeltxt fontp">Qty</label>
+                <input class="mdinput" type="number" [(ngModel)]="Activeitemproduct.qty">
+            </div>
+            <div class="col-6">
+                <label class="labeltxt fontp">Discount</label>
+                <input class="mdinput" type="number" placeholder="Discount" [(ngModel)]="Activeitemproduct.discount">
+            </div>
         </div>
-    </ng-template>
+        <div class="row p-0 m-0">
+            <div class="offset-5 col-2 offset-5">
+                <button class="mdbtnsave" type="button" (click)="insertitemproduct(modal)">SAVE</button>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

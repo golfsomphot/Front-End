@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, Events } from 'ag-grid-community';
-import { HttpClient } from '@angular/common/http';
+import { ColDef } from 'ag-grid-community';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
-import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 import { varible } from '../varible';
-import { Router, NavigationStart } from '@angular/router';
+import { NavigationStart } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quotation',
@@ -14,145 +12,306 @@ import { Router, NavigationStart } from '@angular/router';
   styleUrls: ['./quotation.component.css']
 })
 export class QuotationComponent implements OnInit {
-  constructor(private http: HttpClient, private ngbModal: NgbModal, private va: varible, private router: Router) {
+  constructor(private modal: NgbModal, private http: HttpClient, private va: varible, private router: Router) { }
 
+  // page: any = 1;
+  product: any = [];
+  selectedValue: string = '';
+  Activequotation: any = {
+    quocode: "",
+    bill: "",
+    ship: "",
+    billaddress: "",
+    shipaddress: "",
+    paymentterm: "",
+    remark: "",
+    amount: 0.00,
+    vat: 0.00,
+    total: 0.00,
+    discount: 0.00,
+    totalline: 0,
+    reqdate: "",
+    saleid: 0,
+    salename: "",
+    empid: 0,
+    empname: "",
+    detail: [],
   }
+
+  public Activeitemproduct: any = {
+    quocode: "",
+    item: 1,
+    productcode: "",
+    qty: 0,
+    unitprice: 0.00,
+    amount: 0,
+    discount: 0,
+    vat: 0.00,
+    total: 0.00,
+    remark: "",
+
+
+  };
+  productcode: any;
+
+  rowData = [];
+  rowData2: any[] = [];
+
+  customerlist: any[] = [];
+  employeelist: any[] = [];
+
   async ngOnInit() {
-    //ฟังชั่น ตรวจสอบurl หากมีการเปลี่ยนพาทให้ปิด Modal
+    this.getdata("");
+
     await this.router.events.subscribe((page) => {
       if (page instanceof NavigationStart) {
-        // console.log("page.url", page.url);
+        console.log("page.url", page.url);
         if (page.url != '/quotation') {
-          this.ngbModal.dismissAll();
+          this.modal.dismissAll();
         }
       }
     });
   }
-  //ตัวแปลต่างๆ
-  unitid: any[] = [];
-  public rowData = [];
-  public rowData2 = [];
 
-  products: any = [];
-  public results: any;
-  public changes: any;
-  public active: any = {
-    Prices: "",
-    unit: "",
-    total: "",
+
+  btnSearch(keyword: any) {
+    this.getdata(keyword);
   }
-  //ฟิลmodal quotation
+
+  deleteitem(item: any) {
+    console.log("item : ", item);
+    if (confirm("Are you sure to delete " + item.item + " " + item.productcode)) {
+
+      var listdetail: any[] = this.Activequotation.detail;
+      var i = listdetail.findIndex(x => x.item == item.item);
+      listdetail.splice(i, 1);
+      var n = 1;
+      listdetail.forEach(detail => {
+        detail.item = n;
+        n++;
+      });
+    }
+
+
+  }
+
+  async getcustomer() {
+    let pram = { tbname: "getcustomer" }
+    try {
+      var response = await this.va.getdata("getquotation", pram);
+      console.log("response: ", response);
+      if (response.data.length > 0) {
+        this.customerlist = response.data;
+
+      } else {
+        alert("ไม่พบข้อมูล");
+      }
+    } catch (ex) {
+
+    }
+    return [];
+
+  }
+
+  async getemployee() {
+    let pram = { tbname: "getemployee" }
+    try {
+      var response = await this.va.getdata("getquotation", pram);
+      console.log("response: ", response);
+      if (response.data.length > 0) {
+        this.employeelist = response.data;
+
+      } else {
+        alert("ไม่พบข้อมูล");
+      }
+    } catch (ex) {
+
+    }
+    return [];
+
+  }
+
+  closemodal_click(modal: any) {
+
+    modal.dismiss();
+    /* this.page = 1; */
+  }
+
   columnDefs: ColDef[] = [
-    { field: 'quocode', headerName: "Quotation Code", width: 130 },
-    { field: 'Customer', headerName: "Customer", width: 200 },
-    { field: 'reqdate', headerName: "Req.Date", width: 150 },
-    { field: 'paymentterms', headerName: "Payment Term", width: 200 },
-    { field: '', headerName: "Item", width: 150 },
-    { field: 'amount', headerName: "Amount", width: 150 },
-    { field: 'discount', headerName: "Discount", width: 150 },
-    { field: 'total', headerName: "Total", width: 200 }
+    { field: 'quocode', headerName: "Quotation Code" },
+    { field: 'billtoname', headerName: "Customer" },
+    { field: 'reqdate', headerName: "Req.Date" },
+    { field: 'paymentterms', headerName: "Payment Term" },
+    { field: 'qtypack', headerName: "Item" },
+    { field: 'amount', headerName: "Amount" },
+    { field: 'discount', headerName: "Discount" },
+    { field: 'total', headerName: "Total" },
+
 
   ];
-  //ฟิลmodal additems
+
   columnDefs2: ColDef[] = [
-    { field: 'quocode', headerName: "NO.", width: 60 },
-    { field: 'Customer', headerName: "item", width: 70 },
-    { field: 'reqdate', headerName: "Unit", width: 60 },
-    { field: 'paymentterms', headerName: "Unit-price", width: 80 },
-    { field: '', headerName: "Total", width: 70 },
+    { field: 'quocode', headerName: "NO.1", width: 67 },
+    { field: 'productcode', headerName: "Item", width: 70 },
+    { field: 'qty', headerName: "Unit", width: 70 },
+    { field: 'unitprice', headerName: "Unit-price", width: 100 },
+    { field: 'total', headerName: "Total", width: 70 },
+
+
 
   ];
 
-  //ฟังชั่น เทียบสินค้าitems
-  async changedpd(event: any) {
-    try {
+  open(content: any) {
+    this.modal.open(content, { size: 'lg' });
+    this.getcustomer();
+    this.getemployee();
+    this.getproduct();
+    this.Activequotation.quocode = this.va.datetostring(new Date, 4);
+    this.Activequotation.reqdate = this.va.datetostring(new Date, 8);
+    this.Activequotation.empname = this.va.userdata.fullname;
+    this.Activequotation.empid = this.va.userdata.empid;
 
-      var inputs = (event.target as HTMLInputElement).value;
-      const result = this.products.find((pd: { productname: string, productcode: string }) => pd.productname === inputs);
-      this.active.Prices = result.price;
-      this.results = result
-    } catch (error) {
+  }
 
-    }
-    return
-  }
-  //ฟังชั่น ผลรวม additem
-  changedUnit() {
-    this.active.total = this.active.Prices * this.active.unit;
-  }
-  //เปิดmodal
-  btn_openmodal(openmodal: any) {
-    this.ngbModal.open(openmodal, { size: 'lg' });
-  }
-  ////เปิดmodal item
-  btn_additem(additem: any) {
-    this.Searchqt("");
-    this.ngbModal.open(additem, { size: 'none' });
-  }
-  //ฟังชั่น เพิ่มquotation
-  async createquotation(modal: any) {
-    let pram = { tbname: "createquotation" };
-    try {
-      var response = await this.va.getdata("createquotation", pram);
-      if (response.code == "000" && response.msg == "ok") {
-        alert("บันทึกข้อมูลเรียบร้อย");
-        modal.close()
-      } else {
-        alert("ไม่สามารถบันทึกข้อมูลได้");
-      }
-    } catch (error) {
-      alert("ไม่สามารถบันทึกข้อมูลได้");
-      console.log(error);
+  customerchange(event: any) {
+
+
+    var data = event.target.value;
+    console.log("data : ", data);
+
+
+    var selectdata = this.customerlist.find(x => x.custid == data);
+    if (selectdata != undefined) {
+      this.Activequotation.custid = selectdata.custid;
+      this.Activequotation.bill = selectdata.custname;
+      this.Activequotation.billaddress = selectdata.custaddress;
+    } else {
+      this.Activequotation.custid = 0;
+      this.Activequotation.bill = "";
+      this.Activequotation.billaddress = "";
     }
   }
-  //ฟังชั่น ค้นหาสินค้าในadditem
-  async Searchqt(key: any) {
-    let pram = { tbname: "addqt", keyword: key };
-    try {
-      var response = await this.va.getdata("products", pram);
-      if (response.data.length > 0) {
-        this.products = response.data;
 
-        console.log("response:", response)
-      } else {
-        alert("ไม่พบข้อมูล");
-      }
-    } catch (error) {
+  employeechange(event: any) {
 
+    var data = event.target.value;
+    console.log("data : ", data);
+
+
+    var selectdata = this.employeelist.find(x => x.empid == data);
+    if (selectdata != undefined) {
+      this.Activequotation.saleid = selectdata.empid;
+      this.Activequotation.salename = selectdata.fullname;
+
+    } else {
+      this.Activequotation.saleid = 0;
+      this.Activequotation.salename = "";
     }
   }
-  //ปุ่มค้นหาสินค้าหลัก
-  async btnSearch(keyword: any) {
-    await this.getdata(keyword)
-  }
-  //ฟังชั่นค้นหาสินค้าหลัก
-  async getdata(key: any) {
 
-    let pram = { tbname: "pdquotation", keyword: key };
+  btnadditem_click(contentadditem: any) {
+    this.modal.open(contentadditem, { size: 'none' });
+
+  }
+
+  //api ต่างๆ
+  async getdata(key: string) {
+    let pram = { tbname: "getquotation", keyword: key }
     try {
-      var response = await this.va.getdata("quotation", pram);
-      if (response.data.length > 0) {
+      var response = await this.va.getdata("getquotation", pram);
+      console.log("getdata response: ", response);
+      if (response.data.length > 0 && response.code == '000') {
         this.rowData = response.data;
+
       } else {
         alert("ไม่พบข้อมูล");
       }
-    } catch (error) {
+    } catch (ex) {
 
-    }
+    };
   }
-  //เพิ่มสินค้าในquotation
 
-  async additems() {
-    var quocode = "00001";
-    let parem = { tbname: "additemquotation", pd: this.results, quocode: quocode };
-
+  async getproduct() {
+    let pram = { tbname: "getproduct" }
     try {
-      var response = await this.va.getdata("itemquotation", parem);
+      var response = await this.va.getdata("getquotation", pram);
+      console.log("getproduct response : ", response);
+      if (response.data.length > 0) {
+        this.product = response.data;
 
-    } catch (error) {
+      } else {
+        alert("ไม่พบข้อมูล");
+      }
+    } catch (ex) {
 
     }
   }
 
+  async getquodetail() {
+    let pram = { tbname: "getquodetail" }
+    try {
+      var response = await this.va.getdata("getquodetail", pram);
+      console.log("response: ", response);
+      if (response.data.length > 0) {
+        this.rowData2 = response.data;
+
+      } else {
+        alert("ไม่พบข้อมูล");
+      }
+    } catch (ex) {
+
+    }
+  }
+
+  async insertquotation(modal: any) {
+    var response;
+    try {
+      let pram = { tbname: "insertquotation", data: this.Activequotation, uid: this.va.userdata.empid };
+      console.log("pram: ", pram);
+      response = await this.http.post<any>("http://localhost:3000/quoinsert", pram).toPromise();
+      if (response.code == "000" && response.msg == "OK") {
+        alert("บันทึกสำเร็จ");
+        modal.close();
+      } else {
+        alert("บันทึกไม่สำเร็จ กรุณาตรวจสอบใหม่อีกครั้ง");
+      }
+      //
+
+    } catch (ex: any) {
+
+    }
+    return;
+  }
+
+  async insertitemproduct(modal: any) {
+    var response;
+    try {
+
+      var detail = { ...this.Activeitemproduct }; // ... เป็นคำสั่ง copy activeitemproduct 
+
+
+      detail.item = this.Activequotation.detail.length + 1;
+      detail.amount = detail.qty * detail.unitprice;
+      detail.vat = (detail.amount - detail.discount) * 0.07;
+      detail.total = (detail.amount - detail.discount) + detail.vat;
+      console.log("detail : ", detail)
+      /* var item: any = {
+        itemproductcode: this.Activeitemproduct.itemproductcode ,
+        itemprice: this.Activeitemproduct.itemprice,
+        numunit: this.Activeitemproduct.numunit,
+        totalvalue: this.Activeitemproduct.totalvalue
+      }; */
+
+
+      this.Activequotation.detail.push(detail);
+
+      console.log("Activequotation : ", this.Activequotation)
+      modal.close();
+
+    } catch (ex: any) {
+
+    }
+    return;
+  }
 
 }

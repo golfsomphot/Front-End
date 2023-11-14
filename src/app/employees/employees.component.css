@@ -69,6 +69,7 @@
    background-color: #F9F9F9;
    border: none;
    border-top: 0.5px solid #DDDDDD;
+   background:linear-gradient(#999999, #F9F9F9, #F9F9F9);
    /* 1 */
  }
 
