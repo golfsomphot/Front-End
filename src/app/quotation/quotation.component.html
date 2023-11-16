@@ -11,8 +11,8 @@
         <i class="bi bi-search iconsearch" (click)="btnSearch(txtkeyword.value)"></i>
     </div>
     <div class="col-3 p-0 m-0">
-        <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" data-bs-toggle="modal"
-            data-bs-target="#myModal" (click)="opencreate_click(content)">
+        <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" 
+        (click)="opencreate_click(content)">
     </div>
 </div>
 
@@ -23,8 +23,8 @@
 </div>
 
 <!-- modal หลัก -->
-<ng-template #content let-modal  >
-    <div style="padding-left: 2vw; padding-right: 2vw;height: 98%;">
+<ng-template #content let-modal>
+    <div style="padding-left: 2vw; padding-right: 2vw; ">
         <div class="row ">
             <div class="col-6">
                 <h4 class="modal-title fonth">Create Quotation</h4>
@@ -188,7 +188,7 @@
 
                 </div>
                 <div class="col-9">
-                    <input   class="mdinput" list="product" placeholder="product"
+                    <input class="mdinput" list="product" placeholder="product"
                         [(ngModel)]="Activequodetail.productcode">
                     <datalist id="product">
                         <option *ngFor="let i of product" [value]="i.productcode"></option>
