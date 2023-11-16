@@ -11,8 +11,7 @@
         <i class="bi bi-search iconsearch" (click)="btnSearch(txtkeyword.value)"></i>
     </div>
     <div class="col-3 p-0 m-0">
-        <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" 
-        (click)="opencreate_click(content)">
+        <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" (click)="opencreate_click(content)">
     </div>
 </div>
 
@@ -40,17 +39,22 @@
         <div class="row modal-body">
             <div>
                 <div class="row">
-                    <div class="col-3 ">
-                        <label class="labeltxt fontp">Sale</label>
-                        <select (change)="employeechange($event)">
-                            <option>กรุณาระบุชื่อพนักงานขาย</option>
+                    <div class="col-6 ">
+                        <label class="labeltxt fontp">
+                            <h6 style="font-weight: bold;">Sale</h6>
+                        </label>
+                        <select (change)="employeechange($event)" style="width: 80%; margin-left: 1vw;">
+                            <option> กรุณาระบุชื่อพนักงานขาย</option>
                             <option *ngFor="let i of employeelist" [value]="i.empid">{{i.fullname}}</option>
+
                         </select>
                         <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
                         <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
                     </div>
                     <div class="col-6 ">
-                        <label class="labeltxt fontp">User</label>
+                        <label class="fontp">
+                            <h6 style="font-weight: bold;">User</h6>
+                        </label>
                         {{Activequotation.empname}}
                     </div>
                 </div>
@@ -78,7 +82,7 @@
                 <div class="col-6">
 
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-6" style="width: 100%;">
                             <label class="labeltxt fontp">Bill To</label>
                             <input class="mdinput" type="text" placeholder="bill" [value]="Activequotation.billtoname">
 
@@ -86,7 +90,7 @@
 
                     </div>
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-6" style="width: 100%;">
                             <label class="labeltxt fontp">Bill To Address</label>
                             <input class="mdinput" type="text" placeholder="address"
                                 [value]="Activequotation.billtoaddress">
@@ -191,7 +195,7 @@
                     <input class="mdinput" list="product" placeholder="product"
                         [(ngModel)]="Activequodetail.productcode">
                     <datalist id="product">
-                        <option *ngFor="let i of product" [value]="i.productcode"></option>
+                        <option *ngFor="let i of product" [value]="i.productname">{{i.productcode}}</option>
                     </datalist>
 
                 </div>
@@ -316,11 +320,11 @@
         <div class="row modal-body p-0 m-0">
             <div>
                 <div class="row">
-                    <div class="col-3 ">
+                    <div class="col-6 ">
                         <label class="labeltxt fontp">Sale</label>
-                        <select (change)="employeechange($event)">
-                            <option [value]="quotationdata.saleid">{{quotationdata.salename}}</option>
-                            <option>กรุณาระบุชื่อพนักงานขาย</option>
+                        <select (change)="employeechange($event)" style="width: 80%; margin-left: 1vw;">
+                            <option>{{quotationdata.salename}}</option>
+
 
                         </select>
                         <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
@@ -328,14 +332,14 @@
                     </div>
                     <div class="col-6 ">
                         <label class="labeltxt fontp">User</label>
-                        {{Activequotation.empname}}
+                        {{quotationdata.namecreate}}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3 ">
                         <label class="labeltxt fontp">Req.Date</label>
                         <input #uni class="mdinput" type="date" [value]="quotationdata.reqdate">
-                        {{quotationdata.reqdate}}
+                        <!-- {{quotationdata.reqdate}} -->
                         <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
                     </div>
                     <div class="col-6 ">
@@ -343,7 +347,7 @@
                         <!-- <input class="mdinput" list="customer" type="search" placeholder="customer name" (click)="btnsearchcustomer_click()"> -->
                         <select (change)="customerchange($event)">
                             <option> {{quotationdata.billtoname}} </option>
-                            <option>กรุณาระบุชื่อลูกค้า</option>
+
                         </select>
                     </div>
                     <div class="col-3">
@@ -356,7 +360,7 @@
                 <div class="col-6">
 
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-6" style="width: 100%;">
                             <label class="labeltxt fontp">Bill To</label>
                             <input class="mdinput" type="text" placeholder="bill" [value]="quotationdata.billtoname">
 
@@ -364,7 +368,7 @@
 
                     </div>
                     <div class="row ">
-                        <div class="col-6">
+                        <div class="col-6" style="width: 100%;">
                             <label class="labeltxt fontp">Bill To Address</label>
                             <input class="mdinput" type="text" placeholder="address"
                                 [value]="quotationdata.billtoaddress">
@@ -425,8 +429,8 @@
                             <div class="col-2">Price</div>
                             <div class="col-2">Amount</div>
                         </div>
-                        <div *ngFor="let i of Activequotation.detail">
-                            <div class="row" (click)="deleteitem(i)">
+                        <div *ngFor="let i of quotationdata.detail">
+                            <div class="row"   >
                                 <div class="col-1">{{i.item}}</div>
                                 <div class="col-6">{{i.productcode}}</div>
                                 <div class="col-1">{{i.qty}}</div>

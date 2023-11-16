@@ -50,6 +50,7 @@ export class QuotationComponent implements OnInit {
     vat: 0.00,
     total: 0.00,
     remark: "",
+
   };
 
 
@@ -148,7 +149,7 @@ export class QuotationComponent implements OnInit {
     { field: 'billtoname', headerName: "Customer" },
     { field: 'reqdate', headerName: "Req.Date" },
     { field: 'paymentterms', headerName: "Payment Term" },
-    { field: 'qtypack', headerName: "Item" },
+    { field: 'item', headerName: "Item" },
     { field: 'amount', headerName: "Amount" },
     { field: 'discount', headerName: "Discount" },
     { field: 'total', headerName: "Total" },
@@ -262,11 +263,15 @@ export class QuotationComponent implements OnInit {
   //ฟังชั่น คลิ๊ก row
   async rowDoubleClicked(event: any, contentview: any) {
     this.ngbmodal.open(contentview, { size: 'lg' });
-    // console.log("event:",event);
+       
     this.quotationdata = event.data;
     var quocode = this.quotationdata.quocode;
     this.quotationdata.detail = await this.getquotationdetail(quocode);
-    console.log("quotationdata:", this.quotationdata);
+    this.quotationdata.detail.quocode = quocode; 
+     
+    this.quotationdata.empname = this.va.userdata.fullname;
+    console.log("rowDoubleClicked quotationdata:",this.quotationdata);
+     
   };
 
   //ฟังชั่น เรียก quotationdetail
@@ -286,29 +291,29 @@ export class QuotationComponent implements OnInit {
     }
   };
 
-  //ฟังชั่น เรียก quotationdetail
-  // async getquodetail() {
-  //   let pram = { tbname: "getquodetail" }
-  //   try {
-  //     var response = await this.va.getdata("getquodetail", pram);
+  // ฟังชั่น เรียก quotationdetail
+  async getquodetail() {
+    let pram = { tbname: "getquodetail" }
+    try {
+      var response = await this.va.getdata("getquodetail", pram);
 
-  //     if (response.data.length > 0) {
-  //       this.rowData2 = response.data;
+      if (response.data.length > 0) {
+        this.rowData2 = response.data;
 
-  //     } else {
-  //       alert("ไม่พบข้อมูล");
-  //     }
-  //   } catch (ex) {
+      } else {
+        alert("ไม่พบข้อมูล");
+      }
+    } catch (ex) {
 
-  //   }
-  // };
+    }
+  };
 
   //ฟังชั่น เรียกข้อมูล  quotation
   async getdata(key: string) {
     let pram = { tbname: "getquotation", keyword: key }
     try {
       var response = await this.va.getdata("getquotation", pram);
-
+      console.log("getdata:response,:response", response);
       if (response.data.length > 0) {
         this.rowData = response.data;
 
@@ -341,7 +346,7 @@ export class QuotationComponent implements OnInit {
   async savequodetail(qdata: any) {
     let pram = { tbname: "insertquodetail", data: qdata, uid: this.va.userdata.empid };
     var quodetail = await this.http.post<any>("http://localhost:9000/insertquodetail", pram).toPromise();
-    console.log("quodetail", quodetail)
+    console.log(" savequodetail quodetail", quodetail)
     if (quodetail.code == "000" && quodetail.msg == "OK") {
       return true;
     } else {
@@ -359,16 +364,17 @@ export class QuotationComponent implements OnInit {
 
         for (var i = 0; i < this.Activequotation.detail.length; i++) {
           var qdata = this.Activequotation.detail[i];
-          // console.log("qdata",qdata);
+          console.log("qdata",qdata);
           qdata.quocode = this.Activequotation.quocode;
 
-          if (await this.savequodetail(qdata)) {
-            alert("บันทึก quotation ไม่สำเร็จ กรุณาตรวจสอบใหม่อีกครั้ง");
-            return;
+          if (!await this.savequodetail(qdata)) {
+            alert("บันทึกสำเร็จ");
+            modal.close();
+   
           }
         }
-        alert("บันทึกสำเร็จ");
-        modal.close();
+        // alert("บันทึกสำเร็จ");
+        // modal.close();
       } else {
         alert("บันทึก quotation ไม่สำเร็จ กรุณาตรวจสอบใหม่อีกครั้ง");
       }
