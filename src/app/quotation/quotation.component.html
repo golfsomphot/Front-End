@@ -12,198 +12,431 @@
     </div>
     <div class="col-3 p-0 m-0">
         <img class="imgbtninsert" src="../../assets/photo/iconimgadd.png" alt="" data-bs-toggle="modal"
-            data-bs-target="#myModal" (click)="open(content)">
+            data-bs-target="#myModal" (click)="opencreate_click(content)">
     </div>
 </div>
 
 <div class="grid">
     <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" [rowData]="rowData"
-        [columnDefs]="columnDefs">
+        [columnDefs]="columnDefs" (rowDoubleClicked)="rowDoubleClicked($event,contentview)">
     </ag-grid-angular>
 </div>
 
-<ng-template #content let-modal>
-    <div class="row ">
-        <div class="col-6">
-            <h4 class="modal-title fonth">Create Quotation</h4>
-        </div>
-        <div class="col-5">
-            <p class="socode">Quotation Code: {{Activequotation.quocode}}</p>
-        </div>
-        <div class="col-1">
-            <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
-                (click)="modal.dismiss('Cross click')">
-        </div>
-    </div>
-    <div class="row modal-body p-0 m-0">
-        <div>
-            <div class="row">
-                <div class="col-3 ">
-                    <label class="labeltxt fontp">Sale</label>
-                    <select (change)="employeechange($event)">
-                        <option>กรุณาระบุชื่อพนักงานขาย</option>
-                        <option *ngFor="let i of employeelist" [value]="i.empid">{{i.fullname}}</option>
-                    </select>
-                    <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
-                    <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
-                </div>
-                <div class="col-6 ">
-                    <label class="labeltxt fontp">User</label>
-                    {{Activequotation.empname}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-3 ">
-                    <label class="labeltxt fontp">Req. Date</label>
-                    <input #uni class="mdinput" type="date" [value]="Activequotation.reqdate">
-                    <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
-                </div>
-                <div class="col-6 ">
-                    <label class="labeltxt fontp">Customer</label>
-                    <!-- <input class="mdinput" list="customer" type="search" placeholder="customer name" (click)="btnsearchcustomer_click()"> -->
-                    <select (change)="customerchange($event)">
-                        <option>กรุณาระบุชื่อลูกค้า</option>
-                        <option *ngFor="let i of customerlist" [value]="i.custid">{{i.custname}}</option>
-                    </select>
-                </div>
-                <div class="col-3">
-                    <button type="button" class="btnnext" (click)="btnadditem_click(contentadditem)">Add Item</button>
-                </div>
-            </div>
-        </div>
-        <div class="row no-gutter p-0 m-0">
+<!-- modal หลัก -->
+<ng-template #content let-modal  >
+    <div style="padding-left: 2vw; padding-right: 2vw;height: 98%;">
+        <div class="row ">
             <div class="col-6">
-
-                <div class="row ">
-                    <div class="col-6">
-                        <label class="labeltxt fontp">Bill To</label>
-                        <input class="mdinput" type="text" placeholder="bill" [value]="Activequotation.bill">
-
-                    </div>
-                    
-                </div>
-                <div class="row ">
-                    <div class="col-6">
-                        <label class="labeltxt fontp">Bill To Address</label>
-                        <input class="mdinput" type="text" placeholder="address" [value]="Activequotation.billaddress">
-
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label class="labeltxt fontp">Paymentterm</label>
-                        <input #unit class="mdinput" type="text" placeholder="paymentterm"
-                            [(ngModel)]="Activequotation.paymentterm">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label class="labeltxt fontp">Remark</label>
-                        <textarea #unit class="mdinput" type="text" placeholder="remark"
-                            [(ngModel)]="Activequotation.remark"></textarea>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-3">
-                        <p class="fontp">Vat</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="fontmoney">{{Activequotation.vat}}</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="fontp">Amount</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="fontmoney" style="float: right;">{{Activequotation.amount}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 offset-6">
-                        <p class="fontp">Total</p>
-                    </div>
-                    <div class="col-3">
-                        <p class="fontmoney">{{Activequotation.total}}</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <button type="button" class="mdbtnsave" (click)="insertquotation(modal)">SAVE</button>
-                    </div>
-                </div>
-
+                <h4 class="modal-title fonth">Create Quotation</h4>
             </div>
-            <div class="col-6 no-gutter p-0 m-0">
-                <div class="grid3">
-                    <div class="row">
-                        <div class="col-1">Item</div>
-                        <div class="col-6">Product</div>
-                        <div class="col-1">Qty</div>
-                        <div class="col-2">Price</div>
-                        <div class="col-2">Amount</div>
+            <div class="col-5">
+                <p class="socode">Quotation Code: {{Activequotation.quocode}}</p>
+            </div>
+            <div class="col-1">
+                <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">
+            </div>
+        </div>
+        <div class="row modal-body">
+            <div>
+                <div class="row">
+                    <div class="col-3 ">
+                        <label class="labeltxt fontp">Sale</label>
+                        <select (change)="employeechange($event)">
+                            <option>กรุณาระบุชื่อพนักงานขาย</option>
+                            <option *ngFor="let i of employeelist" [value]="i.empid">{{i.fullname}}</option>
+                        </select>
+                        <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
+                        <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
                     </div>
-                    <div *ngFor="let i of Activequotation.detail">
-                        <div class="row" (click)="deleteitem(i)">
-                            <div class="col-1">{{i.item}}</div>
-                            <div class="col-6">{{i.productcode}}</div>
-                            <div class="col-1">{{i.qty}}</div>
-                            <div class="col-2">{{i.unitprice}}</div>
-                            <div class="col-2">{{i.amount}}</div>
+                    <div class="col-6 ">
+                        <label class="labeltxt fontp">User</label>
+                        {{Activequotation.empname}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 ">
+                        <label class="labeltxt fontp">Req. Date</label>
+                        <input #uni class="mdinput" type="date" [value]="Activequotation.reqdate">
+                        <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
+                    </div>
+                    <div class="col-6" style="padding-left: 2vw; padding-right: 2vw;">
+                        <label class="labeltxt fontp">Customer</label>
+                        <!-- <input class="mdinput" list="customer" type="search" placeholder="customer name" (click)="btnsearchcustomer_click()"> -->
+                        <select (change)="customerchange($event)">
+                            <option>กรุณาระบุชื่อลูกค้า</option>
+                            <option *ngFor="let i of customerlist" [value]="i.custid">{{i.custname}}</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btnnext" (click)="btnadditem_click(contentadditem)">Add
+                            Item</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter p-0 m-0">
+                <div class="col-6">
+
+                    <div class="row ">
+                        <div class="col-6">
+                            <label class="labeltxt fontp">Bill To</label>
+                            <input class="mdinput" type="text" placeholder="bill" [value]="Activequotation.billtoname">
+
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-6">
+                            <label class="labeltxt fontp">Bill To Address</label>
+                            <input class="mdinput" type="text" placeholder="address"
+                                [value]="Activequotation.billtoaddress">
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="labeltxt fontp">Paymentterm</label>
+                            <input #unit class="mdinput" type="text" placeholder="paymentterm"
+                                [(ngModel)]="Activequotation.paymentterm">
                         </div>
                     </div>
-                    <!-- <ag-grid-angular style="width: 100%; height: 100%" class="ag-theme-alpine" [rowData]="Activequotation.detail"
-                        [columnDefs]="columnDefs2">
-                    </ag-grid-angular> -->
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="labeltxt fontp">Remark</label>
+                            <textarea #unit class="mdinput" type="text" placeholder="remark"
+                                [(ngModel)]="Activequotation.remark"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="fontp">Vat</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney">{{Activequotation.vat.toFixed(2)}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p style="margin-left: 1vw;" class="fontp">Amount</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney" style="float: right;">{{Activequotation.amount.toFixed(2)}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 ">
+                            <p class="fontp">Total</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney">{{Activequotation.total.toFixed(2)}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="mdbtnsave" (click)="insertquotation(modal)">SAVE</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 no-gutter p-0 m-0">
+                    <div class="grid3">
+                        <div class="row">
+                            <div class="col-1">Item</div>
+                            <div class="col-6">Product</div>
+                            <div class="col-1">Qty</div>
+                            <div class="col-2">Price</div>
+                            <div class="col-2">Amount</div>
+                        </div>
+                        <div *ngFor="let i of Activequotation.detail">
+                            <div class="row" (click)="deleteitem(i)">
+                                <div class="col-1">{{i.item}}</div>
+                                <div class="col-6">{{i.productcode}}</div>
+                                <div class="col-1">{{i.qty}}</div>
+                                <div class="col-2">{{i.unitprice}}</div>
+                                <div class="col-2">{{i.amount}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ng-template>
+
+<!-- modal  เพิ่มitem -->
+<ng-template #contentadditem let-modal>
+    <div style="padding-left: 2vw; padding-right: 2vw;">
+        <div class="row">
+            <div class="col-6">
+                <h4 class="modal-title">Add Item</h4>
+            </div>
+            <div class="col-6">
+                <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
+                    (click)="closemodal_click(modal)">
+            </div>
+        </div>
+        <div class="row modal-body ">
+
+            <div class="row  ">
+
+                <div class="col-3">
+                    <label class="labeltxt fontp">Product Name</label>
+
+                </div>
+                <div class="col-9">
+                    <input   class="mdinput" list="product" placeholder="product"
+                        [(ngModel)]="Activequodetail.productcode">
+                    <datalist id="product">
+                        <option *ngFor="let i of product" [value]="i.productcode"></option>
+                    </datalist>
+
                 </div>
 
             </div>
+            <!-- หากเป็นค่าว่างจะไม่แสดงช่องข้อมูล -->
+            <div *ngIf="Activequodetail.productcode!= ''">
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Qty</label>
+                    </div>
+                    <div class="col-7">
+                        <input #qty (keyup.enter)="UnitPrice.focus()" class="mdinput" [(ngModel)]="Activequodetail.qty"
+                            (change)="Item_Change()">
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Unit</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Unit Price</label>
+                    </div>
+                    <div class="col-7">
+                        <input #UnitPrice (keyup.enter)="Discount.focus()" class="mdinput"
+                            [(ngModel)]="Activequodetail.unitprice" (change)="Item_Change()">
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Baht</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Discount</label>
+
+                    </div>
+                    <div class="col-7">
+                        <input #Discount (keyup.enter)="remark.focus()" style="float: right;" class="mdinput"
+                            [(ngModel)]="Activequodetail.discount" (change)="Item_Change()">
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Baht</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Amount</label>
+                    </div>
+                    <div class="col-7">
+                        <label style="float: right;">{{Activequodetail.amount.toFixed(2)}}</label>
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Baht</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Vat</label>
+
+                    </div>
+                    <div class="col-7">
+                        <label style="float: right;">{{Activequodetail.vat.toFixed(2)}}</label>
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Baht</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Total</label>
+                    </div>
+                    <div class="col-7">
+                        <label style="float: right;">{{Activequodetail.total.toFixed(2)}}</label>
+                    </div>
+                    <div class="col-2" style="text-align: center;">
+                        <div>Baht</div>
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-3">
+                        <label class="labeltxt fontp">Remark </label>
+                    </div>
+                    <div class="col-9">
+                        <textarea #remark style="width: 100%;">{{Activequodetail.remark}}</textarea>
+                    </div>
+
+                </div>
+                <!-- btn_save -->
+                <div class="row ">
+                    <div>
+                        <button class="mdbtnsave" type="button" (click)="insertitemproduct(modal)">SAVE</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
-
 </ng-template>
 
-<ng-template #contentadditem let-modal>
-    <div class="row">
-        <div class="col-6">
-            <h4 class="modal-title">Add Item</h4>
-        </div>
-        <div class="col-6">
-            <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
-                (click)="closemodal_click(modal)">
-        </div>
-    </div>
-    <div class="row modal-body ">
-        <div class="row p-0 m-0">
+<!-- หน้ากด modal view -->
+<ng-template #contentview let-modal>
+    <div style="padding-left: 2vw; padding-right: 2vw;">
+        <div class="row ">
             <div class="col-6">
-                <label class="labeltxt fontp">Product Name</label>
-                <input class="mdinput" list="product" placeholder="product" [(ngModel)]="Activeitemproduct.productcode">
-                <datalist id="product">
-                    <option *ngFor="let i of product" [value]="i.productname"></option>
-                </datalist>
+                <h4 class="modal-title fonth">View Quotation</h4>
             </div>
-            <div class="col-6">
-                <label class="labeltxt fontp">Unit Price</label>
-                <input class="mdinput" type="number" [(ngModel)]="Activeitemproduct.unitprice">
+            <div class="col-5">
+                <p class="socode">Quotation Code:{{quotationdata.quocode}}</p>
             </div>
-        </div>
-        <div class="row p-0 m-0">
-            <div class="col-6">
-                <label class="labeltxt fontp">Qty</label>
-                <input class="mdinput" type="number" [(ngModel)]="Activeitemproduct.qty">
-            </div>
-            <div class="col-6">
-                <label class="labeltxt fontp">Discount</label>
-                <input class="mdinput" type="number" placeholder="Discount" [(ngModel)]="Activeitemproduct.discount">
+            <div class="col-1">
+                <img class="imgclose" src="../../assets/photo/cross.png" aria-label="Close"
+                    (click)="modal.dismiss('Cross click')">
             </div>
         </div>
-        <div class="row p-0 m-0">
-            <div class="offset-5 col-2 offset-5">
-                <button class="mdbtnsave" type="button" (click)="insertitemproduct(modal)">SAVE</button>
-            </div>
-        </div>
+        <div class="row modal-body p-0 m-0">
+            <div>
+                <div class="row">
+                    <div class="col-3 ">
+                        <label class="labeltxt fontp">Sale</label>
+                        <select (change)="employeechange($event)">
+                            <option [value]="quotationdata.saleid">{{quotationdata.salename}}</option>
+                            <option>กรุณาระบุชื่อพนักงานขาย</option>
 
+                        </select>
+                        <!-- <input #uni class="mdinput" type="text" [value]="Activequotation.salename"> -->
+                        <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
+                    </div>
+                    <div class="col-6 ">
+                        <label class="labeltxt fontp">User</label>
+                        {{Activequotation.empname}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3 ">
+                        <label class="labeltxt fontp">Req.Date</label>
+                        <input #uni class="mdinput" type="date" [value]="quotationdata.reqdate">
+                        {{quotationdata.reqdate}}
+                        <!--  <i class="bi bi-caret-down-fill iconreq"></i> -->
+                    </div>
+                    <div class="col-6 ">
+                        <label class="labeltxt fontp">Customer</label>
+                        <!-- <input class="mdinput" list="customer" type="search" placeholder="customer name" (click)="btnsearchcustomer_click()"> -->
+                        <select (change)="customerchange($event)">
+                            <option> {{quotationdata.billtoname}} </option>
+                            <option>กรุณาระบุชื่อลูกค้า</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" class="btnnext" (click)="btnadditem_click(contentadditem)">Add
+                            Item</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutter p-0 m-0">
+                <div class="col-6">
+
+                    <div class="row ">
+                        <div class="col-6">
+                            <label class="labeltxt fontp">Bill To</label>
+                            <input class="mdinput" type="text" placeholder="bill" [value]="quotationdata.billtoname">
+
+                        </div>
+
+                    </div>
+                    <div class="row ">
+                        <div class="col-6">
+                            <label class="labeltxt fontp">Bill To Address</label>
+                            <input class="mdinput" type="text" placeholder="address"
+                                [value]="quotationdata.billtoaddress">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="labeltxt fontp">Paymentterm</label>
+                            <input #unit class="mdinput" type="text" placeholder="paymentterm"
+                                [(ngModel)]="quotationdata.paymentterm">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label class="labeltxt fontp">Remark</label>
+                            <textarea #unit class="mdinput" type="text" placeholder="remark"
+                                [(ngModel)]="quotationdata.remark"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-3">
+                            <p class="fontp">Vat</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney">{{quotationdata.vat.toFixed(2) }}</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontp">Amount</p>
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney" style="float: right;">{{quotationdata.amount.toFixed(2)}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3 offset-6">
+                            <p class="fontp">Total</p>
+
+                        </div>
+                        <div class="col-3">
+                            <p class="fontmoney">{{quotationdata.total.toFixed(2)}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" class="mdbtnsave" (click)="insertquotation(modal)">SAVE</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6 no-gutter p-0 m-0">
+                    <div class="grid3">
+                        <div class="row">
+                            <div class="col-1">Item</div>
+                            <div class="col-6">Product</div>
+                            <div class="col-1">Qty</div>
+                            <div class="col-2">Price</div>
+                            <div class="col-2">Amount</div>
+                        </div>
+                        <div *ngFor="let i of Activequotation.detail">
+                            <div class="row" (click)="deleteitem(i)">
+                                <div class="col-1">{{i.item}}</div>
+                                <div class="col-6">{{i.productcode}}</div>
+                                <div class="col-1">{{i.qty}}</div>
+                                <div class="col-2">{{i.unitprice}}</div>
+                                <div class="col-2">{{i.amount}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>
