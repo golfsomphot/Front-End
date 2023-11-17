@@ -97,8 +97,6 @@ export class QuotationComponent implements OnInit {
       });
 
     }
-
-
   };
   //คำสั่ง ดึงข้อมูลจาก customer
   async getcustomer() {
@@ -263,15 +261,16 @@ export class QuotationComponent implements OnInit {
   //ฟังชั่น คลิ๊ก row
   async rowDoubleClicked(event: any, contentview: any) {
     this.ngbmodal.open(contentview, { size: 'lg' });
-       
+
     this.quotationdata = event.data;
     var quocode = this.quotationdata.quocode;
     this.quotationdata.detail = await this.getquotationdetail(quocode);
-    this.quotationdata.detail.quocode = quocode; 
-     
-    this.quotationdata.empname = this.va.userdata.fullname;
-    console.log("rowDoubleClicked quotationdata:",this.quotationdata);
-     
+    this.quotationdata.detail.quocode = quocode;
+    console.log(" this.quotationdata", this.quotationdata)
+    // this.quotationdata.empname = this.va.userdata.fullname;
+
+
+    
   };
 
   //ฟังชั่น เรียก quotationdetail
@@ -279,7 +278,7 @@ export class QuotationComponent implements OnInit {
     let pram = { tbname: "getquodetail", quocode: qid }
     try {
       var response = await this.va.getdata("getquodetail", pram);
-
+      // console.log("getquotationdetailresponse", response);
       if (response.data.length > 0) {
         return response.data;
 
@@ -313,7 +312,7 @@ export class QuotationComponent implements OnInit {
     let pram = { tbname: "getquotation", keyword: key }
     try {
       var response = await this.va.getdata("getquotation", pram);
-      console.log("getdata:response,:response", response);
+      // console.log("getdata:response,:response", response);
       if (response.data.length > 0) {
         this.rowData = response.data;
 
@@ -364,17 +363,14 @@ export class QuotationComponent implements OnInit {
 
         for (var i = 0; i < this.Activequotation.detail.length; i++) {
           var qdata = this.Activequotation.detail[i];
-          console.log("qdata",qdata);
+          console.log("qdata", qdata);
           qdata.quocode = this.Activequotation.quocode;
 
           if (!await this.savequodetail(qdata)) {
             alert("บันทึกสำเร็จ");
             modal.close();
-   
           }
         }
-        // alert("บันทึกสำเร็จ");
-        // modal.close();
       } else {
         alert("บันทึก quotation ไม่สำเร็จ กรุณาตรวจสอบใหม่อีกครั้ง");
       }
