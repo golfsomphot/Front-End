@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuComponent } from './menu/menu.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CustomerComponent } from './customer/customer.component';
+
  
 import { EmployeesComponent } from './employees/employees.component';
 import { ProductsComponent } from './products/products.component';
@@ -18,6 +19,7 @@ import { SaleorderComponent } from './saleorder/saleorder.component';
 import { varible } from './varible';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { Test1Component } from './test1/test1.component';
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,6 +36,7 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     QuotationComponent,
     SaleorderComponent,
+    Test1Component,
      
   ],
   imports: [
@@ -43,7 +46,8 @@ import { FormsModule } from '@angular/forms';
     NgbModule,
     FormsModule,
     AgGridModule,
-    ButtonModule
+    ButtonModule,
+    
     
     
   ],
