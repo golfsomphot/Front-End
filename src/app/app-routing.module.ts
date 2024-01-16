@@ -13,7 +13,7 @@ import { AuthguardService } from './authguard.service';
 
 
 
-import { Test1Component } from './test1/test1.component';
+ 
 const routes: Routes = [
   { path: '', component: LogtestComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthguardService] },
@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardService] },
   { path: 'quotation', component: QuotationComponent, canActivate: [AuthguardService] },
   { path: 'saleorder', component: SaleorderComponent, canActivate: [AuthguardService] },
-  { path: 'test1', component: SaleorderComponent, canActivate: [AuthguardService] }
+   
 ];
 
 

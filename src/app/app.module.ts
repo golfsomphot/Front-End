@@ -19,7 +19,7 @@ import { SaleorderComponent } from './saleorder/saleorder.component';
 import { varible } from './varible';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { Test1Component } from './test1/test1.component';
+ 
 
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { MatFormFieldModule } from '@angular/material/form-field';
@@ -36,7 +36,7 @@ import { Test1Component } from './test1/test1.component';
     DashboardComponent,
     QuotationComponent,
     SaleorderComponent,
-    Test1Component,
+     
      
   ],
   imports: [

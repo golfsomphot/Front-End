@@ -16,6 +16,7 @@ export class LogtestComponent implements OnInit {
     user: "",
     password: ""
   }
+  
 
   constructor(private http: HttpClient, private rout: Router, private va: varible) { }
   ngOnInit() {
@@ -41,24 +42,37 @@ export class LogtestComponent implements OnInit {
     }
   }
 
+
+
   async getdatalogin(username: any, password: any) {
     const pram = { tbname: "getdatalogin", data: this.Userlogin };
     try {
-      var res = await this.http.post<any>("http://localhost:9000/getdatalogin", pram).toPromise();
-      console.log("res", res);
-      return res
+      var res = await this.http.post<any>("http://localhost:9000/getdatalogin", pram).toPromise();;
     } catch (error) {
       console.error('เกิดข้อผิดพลาดในการร้องขอ HTTP:', error);
       return null;
-    }
+    } console.log("res", res);
+    return res
   }
+    //   } 
 
+    // async getdatalogin(username: any, password: any): Promise<any> {
+    //   const pram = { tbname: "getdatalogin", data: this.Userlogin };
 
+    //   try {
+    //     const res = await this.fetchData(pram).toPromise();
+    //     console.log("res", res);
+    //     return res;
+    //   } catch (error) {
+    //     console.error('Error in getdatalogin:', error);
+    //     throw error;
+    //   }
 
+    // }
 
+    // fetchData(pram: any): Observable<any> {
+    //   return this.http.post("http://localhost:9000/getdatalogin", pram);
+    // }
 
-
-
-
-
+  
 }
