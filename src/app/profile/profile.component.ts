@@ -25,7 +25,22 @@ export class ProfileComponent implements OnInit {
 
   }
   public base64String = this.va.userdata.pic;
+ 
+  imgonchamnge(event: any) {
 
+    var file = event.target.files[0];
+    if (file) {
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // ทำสิ่งที่คุณต้องการกับข้อมูล Base64
+        const base64Data = e.target.result as string;
+        console.log('Base64 data:', base64Data);
+      }
+      return this.base64String = reader.readAsDataURL(file);
+    }
+
+  }
 
 
 }

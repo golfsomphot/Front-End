@@ -51,7 +51,8 @@ import { FormsModule } from '@angular/forms';
     
     
   ],
-  providers: [varible],
+  // providers: [LogtestComponent],
+  providers: [varible,LogtestComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

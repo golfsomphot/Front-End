@@ -103,7 +103,7 @@ handleReaderLoaded(readerEvt: any) {
 
   //ฟังชั่น เพิ่มข้อมูล
   async insertemployees(Modal: any) {
-    console.log(" this.activeemployees", this.activeemployees)
+    // console.log(" this.activeemployees", this.activeemployees)
     try {
       // console.log("activeemployees.position:",this.activeemployees.position);
       let pram = { tbname: "insertemployees", data: this.activeemployees, uid: this.va.userdata,pic:this.base64textString };
@@ -129,7 +129,7 @@ handleReaderLoaded(readerEvt: any) {
 
         response = await this.http.post<any>("http://localhost:9000/insertemployee", pram).toPromise();
 
-        console.log(" response", response);
+        // console.log(" response", response);
 
         if (response.code == "000" && response.msg == "ok") {
 

@@ -4,9 +4,9 @@
 <div class="row_responsive   ">
     <!-- รูปโปร -->
     <div class="col-5   ">
-        <form>
+        <form  (change)="imgonchamnge($event)">
             <img class=" img-fluid imgprofile" [src]="base64String" alt="Image">
-            <input type="file" id="fileInput" style="display: none">
+            <input type="file"   id="fileInput"   style="display: none;"    >
         </form>
     </div>
     <!-- ข้อมูลuser -->
